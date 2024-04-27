@@ -11,7 +11,7 @@ const Converter = {
         return hash.substring(0, space) + '...' + hash.substring(hash.length - space, hash.length);
     },
 
-    fromWei: function (wei: string) {
+    fromWei: function (wei: any) {
         try {
             if (wei == '' || wei == '0') return '0';
             return convert(wei, 'wei', 'ether');

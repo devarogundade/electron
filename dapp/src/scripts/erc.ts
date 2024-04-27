@@ -2,7 +2,7 @@ import { erc20Abi } from "viem";
 import { config } from './config';
 import { waitForTransactionReceipt, writeContract, readContract } from '@wagmi/core';
 
-export async function allowance(tokenId: `0x${string}`, address: `0x${string}`, spender: `0x${string}`) {
+export async function getAllowance(tokenId: `0x${string}`, address: `0x${string}`, spender: `0x${string}`) {
     try {
         return await readContract(config, {
             abi: erc20Abi,

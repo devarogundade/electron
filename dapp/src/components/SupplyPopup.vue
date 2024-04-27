@@ -4,10 +4,12 @@ import { onMounted, ref } from 'vue';
 
 import { useStore } from 'vuex';
 import { key } from '../store';
-import { supply } from '@/scripts/electron';
+import { electronId, supply } from '@/scripts/electron';
 import Converter from '@/scripts/converter';
 import { getPositions } from '@/scripts/subgraph';
 import { getToken } from '@/scripts/tokens';
+import { getAllowance } from '@/scripts/erc';
+import { approve } from '@/scripts/erc';
 
 const store = useStore(key);
 
@@ -15,6 +17,7 @@ const isDropdown = ref(false);
 
 const progress = ref(false);
 const collateral = ref<String>('0');
+const allowance = ref<String>('0');
 
 const emit = defineEmits(['close', 'unClose']);
 
@@ -46,7 +49,38 @@ const supplyCollateral = async () => {
     progress.value = false;
 };
 
-const initialize = async () => { };
+const approveElectron = async () => {
+    if (progress.value || collateral.value == '') return;
+    progress.value = true;
+
+    const hash = await approve(
+        props.pool.collateralId,
+        electronId,
+        Converter.toWei(collateral.value.toString())
+    );
+
+    progress.value = false;
+
+    console.log(hash);
+
+    if (!hash) {
+
+    } else {
+
+    }
+
+    initialize();
+};
+
+const initialize = async () => {
+    allowance.value = Converter.fromWei(
+        await getAllowance(
+            props.pool.collateralId,
+            store.state.address,
+            electronId
+        )
+    );
+};
 
 onMounted(() => {
     initialize();
@@ -82,7 +116,10 @@ onMounted(() => {
 
                     <br> <br>
 
-                    <button class="action" @click="supplyCollateral">
+                    <button v-if="allowance < collateral" class="action" @click="approveElectron">
+                        {{ progress.valueOf() ? 'Approving..' : 'Approve' }}
+                    </button>
+                    <button v-else class="action" @click="supplyCollateral">
                         {{ progress.valueOf() ? 'Supplying..' : 'Supply' }}
                     </button>
                 </div>

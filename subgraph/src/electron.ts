@@ -18,7 +18,7 @@ import {
 
 export function handleCloseLoan(event: CloseLoanEvent): void {
   let entity = NewLoan.load(
-    event.params.account.toString().concat(event.params.poolId.toString())
+    event.params.account.toHexString().concat(event.params.poolId.toString())
   );
 
   if (!entity) return;
@@ -41,7 +41,7 @@ export function handleCloseLoan(event: CloseLoanEvent): void {
 
 export function handleClosePosition(event: ClosePositionEvent): void {
   let entity = NewPosition.load(
-    event.params.account.toString().concat(event.params.poolId.toString())
+    event.params.account.toHexString().concat(event.params.poolId.toString())
   );
 
   if (!entity) return;
@@ -64,7 +64,7 @@ export function handleClosePosition(event: ClosePositionEvent): void {
 
 export function handleNewLoan(event: NewLoanEvent): void {
   let entity = new NewLoan(
-    event.params.account.toString().concat(event.params.poolId.toString())
+    event.params.account.toHexString().concat(event.params.poolId.toString())
   );
 
   entity.poolId = event.params.poolId;
@@ -113,7 +113,7 @@ export function handleNewPool(event: NewPoolEvent): void {
 
 export function handleNewPosition(event: NewPositionEvent): void {
   let entity = new NewPosition(
-    event.params.account.toString().concat(event.params.poolId.toString())
+    event.params.account.toHexString().concat(event.params.poolId.toString())
   );
 
   entity.poolId = event.params.poolId;

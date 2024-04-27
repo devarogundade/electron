@@ -68,11 +68,11 @@ onMounted(() => {
                 <div class="borrow">
                     <div class="label">Amount</div>
 
-                    <br>
+                    <br>{{ position?.valueOf() }}
 
                     <div class="input_wrapper">
                         <input type="number" placeholder="0.00" disabled
-                            :value="Converter.fromWei(position?.collateral || '0')">
+                            :value="Converter.fromWei(position?.valueOf()?.collateral || '0')">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
@@ -88,7 +88,7 @@ onMounted(() => {
 
                     <div class="label">
                         Available:
-                        {{ position?.collateral }}
+                        {{ position?.valueOf()?.collateral }}
                         {{ getToken(props.pool.collateralId)!!.symbol }}
                     </div>
 

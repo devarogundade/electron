@@ -117,6 +117,10 @@ export async function getPositions(account: `0x${string}`): Promise<Position[]> 
                 query: `{
                     newPositions(where: {account: "${account}"}) {
                         id
+                        poolId
+                        collateral
+                        startDate
+                        blockTimestamp 
                     }
                 }`
             }
@@ -137,6 +141,10 @@ export async function getPosition(poolId: number, account: `0x${string}`): Promi
                 query: `{
                     newPosition(id: ${account + poolId.toString()}) {
                         id
+                        poolId
+                        collateral
+                        startDate
+                        blockTimestamp 
                     }
                 }`
             }

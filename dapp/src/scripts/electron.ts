@@ -3,7 +3,7 @@ import { abi } from '../contracts/electron_abi';
 import { waitForTransactionReceipt, writeContract, readContract } from '@wagmi/core';
 import type { Proof } from '@/types';
 
-const electronId: `0x${string}` = '0x52cf309B4A500DEE45B42Ccc9E9a026252dC0513';
+export const electronId: `0x${string}` = '0x52cf309B4A500DEE45B42Ccc9E9a026252dC0513';
 
 export async function supply(poolId: number, principal: string) {
     try {

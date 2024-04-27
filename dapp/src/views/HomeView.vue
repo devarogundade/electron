@@ -122,13 +122,13 @@ onMounted(() => {
                   </div>
                 </td>
                 <td>
-                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateralId)!!.symbol }}</p>
+                  <p>{{ Converter.fromWei(pool.totalSupplied) }} {{ getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ pool.totalBorrowed }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p>{{ Converter.fromWei(pool.totalBorrowed) }} {{ getToken(pool.principalId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateralId)!!.symbol }}</p>
+                  <p>{{ Converter.fromWei(pool.totalSupplied) }} {{ getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
                   <button @click="supplyPop = pool">Supply</button>
@@ -175,13 +175,13 @@ onMounted(() => {
                   </div>
                 </td>
                 <td>
-                  <p>{{ pool.totalBorrowed }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p>{{ Converter.fromWei(pool.totalBorrowed) }} {{ getToken(pool.principalId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateralId)!!.symbol }}</p>
+                  <p>{{ Converter.fromWei(pool.totalSupplied) }} {{ getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ pool.totalBorrowed }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p>{{ Converter.fromWei(pool.totalBorrowed) }} {{ getToken(pool.principalId)!!.symbol }}</p>
                   <p style="font-size: 12px; margin-top: 2px; color: #d20808; font-weight: 400;">
                     Interest:
                     {{ Converter.toMoney(pool.interest / 1_000_000) }}%
