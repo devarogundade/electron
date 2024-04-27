@@ -1,0 +1,74 @@
+type CloseLoan @entity(immutable: true) {
+  id: Bytes!
+  poolId: BigInt! # uint256
+  account: Bytes! # address
+  state: Int! # uint8
+  repaidDate: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ClosePosition @entity(immutable: true) {
+  id: Bytes!
+  poolId: BigInt! # uint256
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NewLoan @entity(immutable: true) {
+  id: Bytes!
+  poolId: BigInt! # uint256
+  account: Bytes! # address
+  principal: BigInt! # uint256
+  collateral: BigInt! # uint256
+  state: Int! # uint8
+  startDate: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NewPool @entity(immutable: true) {
+  id: Bytes!
+  poolId: BigInt! # uint256
+  principalId: Bytes! # address
+  collateralId: Bytes! # address
+  totalSupplied: BigInt! # uint256
+  totalBorrowed: BigInt! # uint256
+  interest: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NewPosition @entity(immutable: true) {
+  id: Bytes!
+  poolId: BigInt! # uint256
+  account: Bytes! # address
+  principal: BigInt! # uint256
+  startDate: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferStarted @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
