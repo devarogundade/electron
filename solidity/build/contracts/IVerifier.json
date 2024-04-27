@@ -1,0 +1,267 @@
+{
+  "contractName": "IVerifier",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "proofId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "pubInput",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct Data.Proof",
+          "name": "proof",
+          "type": "tuple"
+        }
+      ],
+      "name": "verify",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"proofId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"pubInput\",\"type\":\"bytes32[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"internalType\":\"struct Data.Proof\",\"name\":\"proof\",\"type\":\"tuple\"}],\"name\":\"verify\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/zk/interfaces/IVerifier.sol\":\"IVerifier\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"project:/contracts/core/libraries/Data.sol\":{\"keccak256\":\"0x3c6d001a7bfcf35e96aa0be629db51330afb96ee51901158cb40d7b440ce6e05\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ae56d07f43d234a63a7d6c21a98693d59b9cc3f31338041c5c08f3c323faace2\",\"dweb:/ipfs/QmWuMnUy1snGT4HRB9koYjwLuLrUxotxUDcDEZri6BveYX\"]},\"project:/contracts/zk/interfaces/IVerifier.sol\":{\"keccak256\":\"0x241543fbb1d8cd931ed9d5d1cd48d38f5b4021fdf95a0c3729ce859b4d90da77\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fe5127e50865746183f96b884a2d9501f3a2a7f998227d872479d569fed1947d\",\"dweb:/ipfs/QmRkShZdA3mVXGTDXhhi2CrBjGsmJujvSejRh9LBQ72TV8\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.17;\r\n\r\nimport {Data} from \"../../core/libraries/Data.sol\";\r\n\r\ninterface IVerifier {\r\n    function verify(\r\n        Data.Proof calldata proof\r\n    ) external view returns (bool, uint8);\r\n}\r\n",
+  "sourcePath": "C:\\Users\\DELL\\electron\\solidity\\contracts\\zk\\interfaces\\IVerifier.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/zk/interfaces/IVerifier.sol",
+    "exportedSymbols": {
+      "Data": [
+        3085
+      ],
+      "IVerifier": [
+        3206
+      ]
+    },
+    "id": 3207,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3193,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:24:19"
+      },
+      {
+        "absolutePath": "project:/contracts/core/libraries/Data.sol",
+        "file": "../../core/libraries/Data.sol",
+        "id": 3195,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 3207,
+        "sourceUnit": 3086,
+        "src": "61:51:19",
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 3194,
+              "name": "Data",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 3085,
+              "src": "69:4:19",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IVerifier",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 3206,
+        "linearizedBaseContracts": [
+          3206
+        ],
+        "name": "IVerifier",
+        "nameLocation": "126:9:19",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "ccc9ebb2",
+            "id": 3205,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "verify",
+            "nameLocation": "152:6:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3199,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3198,
+                  "mutability": "mutable",
+                  "name": "proof",
+                  "nameLocation": "189:5:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3205,
+                  "src": "169:25:19",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Proof_$3048_calldata_ptr",
+                    "typeString": "struct Data.Proof"
+                  },
+                  "typeName": {
+                    "id": 3197,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 3196,
+                      "name": "Data.Proof",
+                      "nameLocations": [
+                        "169:4:19",
+                        "174:5:19"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 3048,
+                      "src": "169:10:19"
+                    },
+                    "referencedDeclaration": 3048,
+                    "src": "169:10:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Proof_$3048_storage_ptr",
+                      "typeString": "struct Data.Proof"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "158:43:19"
+            },
+            "returnParameters": {
+              "id": 3204,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3201,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3205,
+                  "src": "225:4:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3200,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "225:4:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3203,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3205,
+                  "src": "231:5:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 3202,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "231:5:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "224:13:19"
+            },
+            "scope": 3206,
+            "src": "143:95:19",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3207,
+        "src": "116:125:19",
+        "usedErrors": []
+      }
+    ],
+    "src": "33:210:19"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.11",
+  "updatedAt": "2024-04-27T02:13:15.221Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
