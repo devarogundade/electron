@@ -40,6 +40,13 @@ contract Pools is IPools, Ownable2Step {
         return _pools[poolId];
     }
 
+    function hasPosition(
+        uint256 poolId,
+        address account
+    ) external view override returns (bool) {
+        return _positions[account][poolId].collateral > 0;
+    }
+
     function hasPendingLoan(
         uint256 poolId,
         address account

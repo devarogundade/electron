@@ -68,8 +68,6 @@ onMounted(() => {
                 <div class="borrow">
                     <div class="label">Amount</div>
 
-                    <br>{{ position?.valueOf() }}
-
                     <div class="input_wrapper">
                         <input type="number" placeholder="0.00" disabled
                             :value="Converter.fromWei(position?.valueOf()?.collateral || '0')">
@@ -88,7 +86,7 @@ onMounted(() => {
 
                     <div class="label">
                         Available:
-                        {{ position?.valueOf()?.collateral }}
+                        {{ Converter.fromWei(position?.valueOf()?.collateral || '0') }}
                         {{ getToken(props.pool.collateralId)!!.symbol }}
                     </div>
 

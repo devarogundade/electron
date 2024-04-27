@@ -22,9 +22,6 @@ export async function getPools(): Promise<Pool[]> {
             }
         );
 
-        console.log(response);
-
-
         return response.data.data.newPools;
     } catch (error) {
         console.error(error);
@@ -139,7 +136,7 @@ export async function getPosition(poolId: number, account: `0x${string}`): Promi
         const response = await axios.post(endPoint,
             {
                 query: `{
-                    newPosition(id: ${account + poolId.toString()}) {
+                    newPosition(id: "${account.toLowerCase()}${poolId.toString()}") {
                         id
                         poolId
                         collateral
@@ -149,6 +146,9 @@ export async function getPosition(poolId: number, account: `0x${string}`): Promi
                 }`
             }
         );
+
+
+        console.log(response);
 
         return response.data.data.newPosition;
     } catch (error) {

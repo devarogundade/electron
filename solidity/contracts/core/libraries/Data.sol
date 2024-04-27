@@ -28,6 +28,7 @@ library Data {
     }
 
     enum State {
+        NONE,
         ACTIVE,
         REPAID,
         DEFAULTED

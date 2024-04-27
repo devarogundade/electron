@@ -8,6 +8,11 @@ interface IPools {
 
     function getPool(uint256 poolId) external view returns (Data.Pool memory);
 
+    function hasPosition(
+        uint256 poolId,
+        address account
+    ) external view returns (bool);
+
     function hasPendingLoan(
         uint256 poolId,
         address account

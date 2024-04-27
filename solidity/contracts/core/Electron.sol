@@ -60,6 +60,13 @@ contract Electron is IElectron, Ownable2Step {
             collateral
         );
 
+        // Check if account already has a position in the pool
+        bool hasPosition = _pools.hasPosition(poolId, account);
+
+        if (hasPosition) {
+            revert HasPosition();
+        }
+
         // Create account position in the liquidity pool
         _pools.createPosition(poolId, collateral, account);
 

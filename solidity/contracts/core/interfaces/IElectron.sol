@@ -5,6 +5,7 @@ import {Data} from "../libraries/Data.sol";
 
 interface IElectron {
     error InvalidProof();
+    error HasPosition();
     error HasPendingLoan();
 
     event NewPool(
