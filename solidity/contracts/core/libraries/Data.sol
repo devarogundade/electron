@@ -9,13 +9,13 @@ library Data {
 
     struct Proof {
         bytes32 proofId;
-        bytes32[] pubInput;
+        bytes32[] pubInputs;
         bytes data;
     }
 
     struct Position {
         uint256 poolId;
-        uint256 principal;
+        uint256 collateral;
         uint256 startDate;
     }
 

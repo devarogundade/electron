@@ -3,12 +3,53 @@ import BorrowPopup from '@/components/BorrowPopup.vue';
 import SupplyPopup from '@/components/SupplyPopup.vue';
 import WithdrawPopup from '@/components/WithdrawPopup.vue';
 import RepayPopup from '@/components/RepayPopup.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+
+import { config, projectId, chains } from '../scripts/config';
+
+import { createWeb3Modal } from '@web3modal/wagmi/vue';
+import { useWeb3Modal } from '@web3modal/wagmi/vue';
+import { watchAccount } from '@wagmi/core';
 
 const borrowPop = ref<object | null>(null);
 const supplyPop = ref<object | null>(null);
 const withdrawPop = ref<object | null>(null);
 const repayPop = ref<object | null>(null);
+
+import { useStore } from 'vuex';
+import { key } from '../store';
+import Converter from '@/scripts/converter';
+import { getLoan, getLoans, getPools } from '@/scripts/subgraph';
+
+const store = useStore(key);
+
+createWeb3Modal({
+  wagmiConfig: config,
+  projectId: projectId,
+  // @ts-ignore
+  chains: chains,
+  enableAnalytics: true
+});
+
+const modal = useWeb3Modal();
+
+onMounted(() => {
+  watchAccount(config, {
+    onChange(account: any) {
+      store.commit('setAddress', account.address);
+
+      initialize();
+    },
+  });
+});
+
+const initialize = async () => {
+  store.commit('setPools', await getPools());
+
+  if (store.state.address) {
+    store.commit('setLoans', await getLoans(store.state.address));
+  }
+}
 
 </script>
 
@@ -18,7 +59,12 @@ const repayPop = ref<object | null>(null);
       <div class="app_width">
         <header>
           <h3 class="logo">Electron</h3>
-          <button class="connect">Connect Wallet</button>
+          <button class="connect" @click="modal.open()">
+            {{ store.state.address ?
+              `${Converter.fineHash(store.state.address, 4)}`
+              : 'Wallet Connect'
+            }}
+          </button>
         </header>
       </div>
     </div>

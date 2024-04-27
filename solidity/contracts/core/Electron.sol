@@ -22,11 +22,11 @@ contract Electron is IElectron, Ownable2Step {
     IVerifier private _verifier;
 
     constructor(
-        address pool,
+        address pools,
         address dataFeed,
         address verifier
     ) Ownable2Step() {
-        _pools = IPools(pool);
+        _pools = IPools(pools);
         _feed = IDataFeed(dataFeed);
         _verifier = IVerifier(verifier);
     }
@@ -45,39 +45,8 @@ contract Electron is IElectron, Ownable2Step {
     }
 
     /// @notice Explain to an end user what this does
-    function supply(uint256 poolId, uint256 principal) external {
+    function supply(uint256 poolId, uint256 collateral) external {
         address account = _msgSender();
-
-        // Get the liquidity pool
-        Data.Pool memory pool = _pools.getPool(poolId);
-
-        // Extract principal token from account
-        ERC20(pool.principalId).safeTransferFrom(
-            account,
-            address(this),
-            principal
-        );
-
-        // Create account position in the liquidity pool
-        _pools.createPosition(poolId, principal, account);
-
-        emit NewPosition(poolId, account, principal, block.timestamp);
-    }
-
-    /// @notice Explain to an end user what this does
-    function borrow(
-        uint256 poolId,
-        uint256 collateral,
-        Data.Proof[] memory proofs
-    ) external {
-        address account = _msgSender();
-
-        // Check if account already has a pending loan
-        bool hasPendingLoan = _pools.hasPendingLoan(account);
-
-        if (hasPendingLoan) {
-            revert HasPendingLoan();
-        }
 
         // Get the liquidity pool
         Data.Pool memory pool = _pools.getPool(poolId);
@@ -88,6 +57,29 @@ contract Electron is IElectron, Ownable2Step {
             address(this),
             collateral
         );
+
+        // Create account position in the liquidity pool
+        _pools.createPosition(poolId, collateral, account);
+
+        emit NewPosition(poolId, account, collateral, block.timestamp);
+    }
+
+    /// @notice Explain to an end user what this does
+    function borrow(uint256 poolId, Data.Proof[] memory proofs) external {
+        address account = _msgSender();
+
+        // Check if account already has a pending loan
+        bool hasPendingLoan = _pools.hasPendingLoan(poolId, account);
+
+        if (hasPendingLoan) {
+            revert HasPendingLoan();
+        }
+
+        // Get the account position in the liquidity pool
+        Data.Position memory position = _pools.getPosition(poolId, account);
+
+        // Get the liquidity pool
+        Data.Pool memory pool = _pools.getPool(poolId);
 
         uint8 totalLtv = DEFAULT_LTV;
 
@@ -103,7 +95,7 @@ contract Electron is IElectron, Ownable2Step {
         // Calculate collateral amount in usd
         uint256 collateralInUsd = _feed.amountInUsd(
             pool.collateralId,
-            collateral
+            position.collateral
         );
 
         // Use collateral worth and overall points to estimate
@@ -124,13 +116,13 @@ contract Electron is IElectron, Ownable2Step {
         ERC20(pool.principalId).safeTransfer(account, principal);
 
         // Record account loan
-        _pools.createLoan(poolId, principal, collateral, account);
+        _pools.createLoan(poolId, principal, position.collateral, account);
 
         emit NewLoan(
             poolId,
             account,
             principal,
-            collateral,
+            position.collateral,
             Data.State.ACTIVE,
             block.timestamp
         );
@@ -140,23 +132,20 @@ contract Electron is IElectron, Ownable2Step {
     function withdraw(uint256 poolId) external {
         address account = _msgSender();
 
+        // Check if account already has a pending loan
+        bool hasPendingLoan = _pools.hasPendingLoan(poolId, account);
+
+        if (hasPendingLoan) {
+            revert HasPendingLoan();
+        }
+
         // Get the account position in the liquidity pool
         Data.Position memory position = _pools.getPosition(poolId, account);
 
         Data.Pool memory pool = _pools.getPool(poolId);
 
-        // Calculate position rewards in principal token
-        uint256 rewards = _pools.calculateRewards(
-            position.principal,
-            position.startDate,
-            pool.interest
-        );
-
-        // Sum the rewards and principal
-        uint256 principalOut = (position.principal + rewards);
-
         // Send principal token to account
-        ERC20(pool.principalId).safeTransfer(account, principalOut);
+        ERC20(pool.collateralId).safeTransfer(account, position.collateral);
 
         // Close account position in the liquidity pool
         _pools.closePosition(poolId, account);

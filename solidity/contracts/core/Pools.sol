@@ -11,8 +11,6 @@ contract Pools is IPools, Ownable2Step {
     uint256 public constant INTEREST_RATE_DENOMINATOR = 1e18;
     uint16 public constant PERCENT = 100;
 
-    mapping(address => bool) private _hasPendingLoans;
-
     mapping(uint256 => Data.Pool) private _pools;
 
     mapping(address => mapping(uint256 => Data.Loan)) private _loans;
@@ -42,9 +40,10 @@ contract Pools is IPools, Ownable2Step {
     }
 
     function hasPendingLoan(
+        uint256 poolId,
         address account
     ) external view override returns (bool) {
-        return _hasPendingLoans[account];
+        return _loans[account][poolId].state == Data.State.ACTIVE;
     }
 
     function calculateRewards(
@@ -72,16 +71,16 @@ contract Pools is IPools, Ownable2Step {
 
     function createPosition(
         uint256 poolId,
-        uint256 principal,
+        uint256 collateral,
         address account
     ) external override onlyOwner {
         _positions[account][poolId] = Data.Position({
             poolId: poolId,
-            principal: principal,
+            collateral: collateral,
             startDate: block.timestamp
         });
 
-        _pools[poolId].totalSupplied += principal;
+        _pools[poolId].totalSupplied += collateral;
     }
 
     function createLoan(
@@ -90,8 +89,6 @@ contract Pools is IPools, Ownable2Step {
         uint256 collateral,
         address account
     ) external override onlyOwner {
-        _hasPendingLoans[account] = true;
-
         _loans[account][poolId] = Data.Loan({
             poolId: poolId,
             state: Data.State.ACTIVE,
@@ -108,19 +105,17 @@ contract Pools is IPools, Ownable2Step {
         uint256 poolId,
         address account
     ) external override onlyOwner {
-        uint256 principal = _positions[account][poolId].principal;
+        uint256 collateral = _positions[account][poolId].collateral;
 
         delete _positions[account][poolId];
 
-        _pools[poolId].totalSupplied -= principal;
+        _pools[poolId].totalSupplied -= collateral;
     }
 
     function closeLoan(
         uint256 poolId,
         address account
     ) external override onlyOwner {
-        _hasPendingLoans[account] = false;
-
         Data.Loan storage loan = _loans[account][poolId];
 
         if (loan.state != Data.State.ACTIVE) {

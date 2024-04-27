@@ -499,7 +499,7 @@ export class BorrowCallProofsStruct extends ethereum.Tuple {
     return this[0].toBytes();
   }
 
-  get pubInput(): Array<Bytes> {
+  get pubInputs(): Array<Bytes> {
     return this[1].toBytesArray();
   }
 

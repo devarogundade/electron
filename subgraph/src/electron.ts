@@ -1,3 +1,4 @@
+import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import {
   CloseLoan as CloseLoanEvent,
   ClosePosition as ClosePositionEvent,
@@ -6,97 +7,135 @@ import {
   NewPosition as NewPositionEvent,
   OwnershipTransferStarted as OwnershipTransferStartedEvent,
   OwnershipTransferred as OwnershipTransferredEvent
-} from "../generated/Electron/Electron"
+} from "../generated/Electron/Electron";
 import {
-  CloseLoan,
-  ClosePosition,
   NewLoan,
   NewPool,
   NewPosition,
   OwnershipTransferStarted,
   OwnershipTransferred
-} from "../generated/schema"
+} from "../generated/schema";
 
 export function handleCloseLoan(event: CloseLoanEvent): void {
-  let entity = new CloseLoan(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.poolId = event.params.poolId
-  entity.account = event.params.account
-  entity.state = event.params.state
-  entity.repaidDate = event.params.repaidDate
+  let entity = NewLoan.load(
+    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+  );
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  if (!entity) return;
 
-  entity.save()
+  entity.state = event.params.state;
+  entity.repaidDate = event.params.repaidDate;
+
+  entity.save();
+
+  let pool = NewPool.load(
+    event.params.poolId.toHexString()
+  );
+
+  if (!pool) return;
+
+  pool.totalBorrowed = pool.totalBorrowed.minus(entity.principal);
+
+  pool.save();
 }
 
 export function handleClosePosition(event: ClosePositionEvent): void {
-  let entity = new ClosePosition(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.poolId = event.params.poolId
-  entity.account = event.params.account
+  let entity = NewPosition.load(
+    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+  );
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  if (!entity) return;
 
-  entity.save()
+  entity.poolId = BigInt.zero();
+  entity.account = Bytes.empty();
+
+  entity.save();
+
+  let pool = NewPool.load(
+    event.params.poolId.toHexString()
+  );
+
+  if (!pool) return;
+
+  pool.totalSupplied = pool.totalSupplied.minus(entity.principal);
+
+  pool.save();
 }
 
 export function handleNewLoan(event: NewLoanEvent): void {
   let entity = new NewLoan(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.poolId = event.params.poolId
-  entity.account = event.params.account
-  entity.principal = event.params.principal
-  entity.collateral = event.params.collateral
-  entity.state = event.params.state
-  entity.startDate = event.params.startDate
+    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+  );
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.poolId = event.params.poolId;
+  entity.account = event.params.account;
+  entity.principal = event.params.principal;
+  entity.collateral = event.params.collateral;
+  entity.state = event.params.state;
+  entity.startDate = event.params.startDate;
+  entity.repaidDate = BigInt.zero();
 
-  entity.save()
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
+
+  entity.save();
+
+  let pool = NewPool.load(
+    event.params.poolId.toHexString()
+  );
+
+  if (!pool) return;
+
+  pool.totalBorrowed = pool.totalBorrowed.plus(event.params.principal);
+
+  pool.save();
 }
 
 export function handleNewPool(event: NewPoolEvent): void {
   let entity = new NewPool(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.poolId = event.params.poolId
-  entity.principalId = event.params.principalId
-  entity.collateralId = event.params.collateralId
-  entity.totalSupplied = event.params.totalSupplied
-  entity.totalBorrowed = event.params.totalBorrowed
-  entity.interest = event.params.interest
+    event.params.poolId.toHexString()
+  );
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.poolId = event.params.poolId;
+  entity.principalId = event.params.principalId;
+  entity.collateralId = event.params.collateralId;
+  entity.totalSupplied = event.params.totalSupplied;
+  entity.totalBorrowed = event.params.totalBorrowed;
+  entity.interest = event.params.interest;
 
-  entity.save()
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
+
+  entity.save();
 }
 
 export function handleNewPosition(event: NewPositionEvent): void {
   let entity = new NewPosition(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.poolId = event.params.poolId
-  entity.account = event.params.account
-  entity.principal = event.params.principal
-  entity.startDate = event.params.startDate
+    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+  );
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.poolId = event.params.poolId;
+  entity.account = event.params.account;
+  entity.principal = event.params.principal;
+  entity.startDate = event.params.startDate;
 
-  entity.save()
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
+
+  entity.save();
+
+  let pool = NewPool.load(
+    event.params.poolId.toHexString()
+  );
+
+  if (!pool) return;
+
+  pool.totalSupplied = pool.totalSupplied.plus(event.params.principal);
+
+  pool.save();
 }
 
 export function handleOwnershipTransferStarted(
@@ -104,15 +143,15 @@ export function handleOwnershipTransferStarted(
 ): void {
   let entity = new OwnershipTransferStarted(
     event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.previousOwner = event.params.previousOwner
-  entity.newOwner = event.params.newOwner
+  );
+  entity.previousOwner = event.params.previousOwner;
+  entity.newOwner = event.params.newOwner;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
 
-  entity.save()
+  entity.save();
 }
 
 export function handleOwnershipTransferred(
@@ -120,13 +159,13 @@ export function handleOwnershipTransferred(
 ): void {
   let entity = new OwnershipTransferred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.previousOwner = event.params.previousOwner
-  entity.newOwner = event.params.newOwner
+  );
+  entity.previousOwner = event.params.previousOwner;
+  entity.newOwner = event.params.newOwner;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
 
-  entity.save()
+  entity.save();
 }

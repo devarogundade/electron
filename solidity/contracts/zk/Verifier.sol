@@ -20,7 +20,7 @@ contract Verifier is IVerifier, Ownable2Step {
             _verifiers[proof.proofId].verifierId
         );
 
-        bool verified = verifier.verify(proof.data, proof.pubInput);
+        bool verified = verifier.verify(proof.data, proof.pubInputs);
         uint8 points = _verifiers[proof.proofId].points;
 
         return (verified, points);

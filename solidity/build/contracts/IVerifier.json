@@ -12,7 +12,7 @@
             },
             {
               "internalType": "bytes32[]",
-              "name": "pubInput",
+              "name": "pubInputs",
               "type": "bytes32[]"
             },
             {
@@ -43,7 +43,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"proofId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"pubInput\",\"type\":\"bytes32[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"internalType\":\"struct Data.Proof\",\"name\":\"proof\",\"type\":\"tuple\"}],\"name\":\"verify\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/zk/interfaces/IVerifier.sol\":\"IVerifier\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"project:/contracts/core/libraries/Data.sol\":{\"keccak256\":\"0x3c6d001a7bfcf35e96aa0be629db51330afb96ee51901158cb40d7b440ce6e05\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ae56d07f43d234a63a7d6c21a98693d59b9cc3f31338041c5c08f3c323faace2\",\"dweb:/ipfs/QmWuMnUy1snGT4HRB9koYjwLuLrUxotxUDcDEZri6BveYX\"]},\"project:/contracts/zk/interfaces/IVerifier.sol\":{\"keccak256\":\"0x241543fbb1d8cd931ed9d5d1cd48d38f5b4021fdf95a0c3729ce859b4d90da77\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fe5127e50865746183f96b884a2d9501f3a2a7f998227d872479d569fed1947d\",\"dweb:/ipfs/QmRkShZdA3mVXGTDXhhi2CrBjGsmJujvSejRh9LBQ72TV8\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"proofId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"pubInputs\",\"type\":\"bytes32[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"internalType\":\"struct Data.Proof\",\"name\":\"proof\",\"type\":\"tuple\"}],\"name\":\"verify\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/zk/interfaces/IVerifier.sol\":\"IVerifier\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"project:/contracts/core/libraries/Data.sol\":{\"keccak256\":\"0x8e917fdcd078b396dd4e178e7029ba2db0ef2c05e3a0a7457660aa168eb82510\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c62856d502d66b08b7896f7722f3909892be9899eec239954db6ef8a162a3443\",\"dweb:/ipfs/QmScqbMCjQc8VEHnmTqzVnkozAQWddEsfLu9bVR3Satuf5\"]},\"project:/contracts/zk/interfaces/IVerifier.sol\":{\"keccak256\":\"0x241543fbb1d8cd931ed9d5d1cd48d38f5b4021fdf95a0c3729ce859b4d90da77\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fe5127e50865746183f96b884a2d9501f3a2a7f998227d872479d569fed1947d\",\"dweb:/ipfs/QmRkShZdA3mVXGTDXhhi2CrBjGsmJujvSejRh9LBQ72TV8\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -52,23 +52,23 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.17;\r\n\r\nimport {Data} from \"../../core/libraries/Data.sol\";\r\n\r\ninterface IVerifier {\r\n    function verify(\r\n        Data.Proof calldata proof\r\n    ) external view returns (bool, uint8);\r\n}\r\n",
-  "sourcePath": "C:\\Users\\DELL\\electron\\solidity\\contracts\\zk\\interfaces\\IVerifier.sol",
+  "sourcePath": "C:\\Users\\DELL\\Documents\\electron\\solidity\\contracts\\zk\\interfaces\\IVerifier.sol",
   "ast": {
     "absolutePath": "project:/contracts/zk/interfaces/IVerifier.sol",
     "exportedSymbols": {
       "Data": [
-        3085
+        3073
       ],
       "IVerifier": [
-        3206
+        3194
       ]
     },
-    "id": 3207,
+    "id": 3195,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3193,
+        "id": 3181,
         "literals": [
           "solidity",
           "^",
@@ -81,20 +81,20 @@
       {
         "absolutePath": "project:/contracts/core/libraries/Data.sol",
         "file": "../../core/libraries/Data.sol",
-        "id": 3195,
+        "id": 3183,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3207,
-        "sourceUnit": 3086,
+        "scope": 3195,
+        "sourceUnit": 3074,
         "src": "61:51:19",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 3194,
+              "id": 3182,
               "name": "Data",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 3085,
+              "referencedDeclaration": 3073,
               "src": "69:4:19",
               "typeDescriptions": {}
             },
@@ -110,9 +110,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3206,
+        "id": 3194,
         "linearizedBaseContracts": [
-          3206
+          3194
         ],
         "name": "IVerifier",
         "nameLocation": "126:9:19",
@@ -120,7 +120,7 @@
         "nodes": [
           {
             "functionSelector": "ccc9ebb2",
-            "id": 3205,
+            "id": 3193,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -128,42 +128,42 @@
             "nameLocation": "152:6:19",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3199,
+              "id": 3187,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3198,
+                  "id": 3186,
                   "mutability": "mutable",
                   "name": "proof",
                   "nameLocation": "189:5:19",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3205,
+                  "scope": 3193,
                   "src": "169:25:19",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Proof_$3048_calldata_ptr",
+                    "typeIdentifier": "t_struct$_Proof_$3036_calldata_ptr",
                     "typeString": "struct Data.Proof"
                   },
                   "typeName": {
-                    "id": 3197,
+                    "id": 3185,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3196,
+                      "id": 3184,
                       "name": "Data.Proof",
                       "nameLocations": [
                         "169:4:19",
                         "174:5:19"
                       ],
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3048,
+                      "referencedDeclaration": 3036,
                       "src": "169:10:19"
                     },
-                    "referencedDeclaration": 3048,
+                    "referencedDeclaration": 3036,
                     "src": "169:10:19",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Proof_$3048_storage_ptr",
+                      "typeIdentifier": "t_struct$_Proof_$3036_storage_ptr",
                       "typeString": "struct Data.Proof"
                     }
                   },
@@ -173,17 +173,17 @@
               "src": "158:43:19"
             },
             "returnParameters": {
-              "id": 3204,
+              "id": 3192,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3201,
+                  "id": 3189,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3205,
+                  "scope": 3193,
                   "src": "225:4:19",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -192,7 +192,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3200,
+                    "id": 3188,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "225:4:19",
@@ -205,12 +205,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3203,
+                  "id": 3191,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3205,
+                  "scope": 3193,
                   "src": "231:5:19",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -219,7 +219,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 3202,
+                    "id": 3190,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "231:5:19",
@@ -233,14 +233,14 @@
               ],
               "src": "224:13:19"
             },
-            "scope": 3206,
+            "scope": 3194,
             "src": "143:95:19",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3207,
+        "scope": 3195,
         "src": "116:125:19",
         "usedErrors": []
       }
@@ -253,7 +253,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2024-04-27T02:13:15.221Z",
+  "updatedAt": "2024-04-27T13:40:14.582Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

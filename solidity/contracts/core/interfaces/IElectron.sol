@@ -27,7 +27,7 @@ interface IElectron {
     event NewPosition(
         uint256 poolId,
         address account,
-        uint256 principal,
+        uint256 collateral,
         uint256 startDate
     );
 
@@ -40,13 +40,9 @@ interface IElectron {
 
     event ClosePosition(uint256 poolId, address account);
 
-    function supply(uint256 poolId, uint256 principal) external;
+    function supply(uint256 poolId, uint256 collateral) external;
 
-    function borrow(
-        uint256 poolId,
-        uint256 collateral,
-        Data.Proof[] memory proofs
-    ) external;
+    function borrow(uint256 poolId, Data.Proof[] memory proofs) external;
 
     function withdraw(uint256 poolId) external;
 

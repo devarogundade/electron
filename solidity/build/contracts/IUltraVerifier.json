@@ -35,20 +35,20 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.17;\r\n\r\ninterface IUltraVerifier {\r\n    function verify(\r\n        bytes calldata _proof,\r\n        bytes32[] calldata _publicInputs\r\n    ) external view returns (bool);\r\n}\r\n",
-  "sourcePath": "C:\\Users\\DELL\\electron\\solidity\\contracts\\zk\\interfaces\\IUltraVerifier.sol",
+  "sourcePath": "C:\\Users\\DELL\\Documents\\electron\\solidity\\contracts\\zk\\interfaces\\IUltraVerifier.sol",
   "ast": {
     "absolutePath": "project:/contracts/zk/interfaces/IUltraVerifier.sol",
     "exportedSymbols": {
       "IUltraVerifier": [
-        3191
+        3179
       ]
     },
-    "id": 3192,
+    "id": 3180,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3180,
+        "id": 3168,
         "literals": [
           "solidity",
           "^",
@@ -65,9 +65,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3191,
+        "id": 3179,
         "linearizedBaseContracts": [
-          3191
+          3179
         ],
         "name": "IUltraVerifier",
         "nameLocation": "71:14:18",
@@ -75,7 +75,7 @@
         "nodes": [
           {
             "functionSelector": "ea50d0e4",
-            "id": 3190,
+            "id": 3178,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -83,17 +83,17 @@
             "nameLocation": "102:6:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3186,
+              "id": 3174,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3182,
+                  "id": 3170,
                   "mutability": "mutable",
                   "name": "_proof",
                   "nameLocation": "134:6:18",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3190,
+                  "scope": 3178,
                   "src": "119:21:18",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -102,7 +102,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 3181,
+                    "id": 3169,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "119:5:18",
@@ -115,12 +115,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3185,
+                  "id": 3173,
                   "mutability": "mutable",
                   "name": "_publicInputs",
                   "nameLocation": "170:13:18",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3190,
+                  "scope": 3178,
                   "src": "151:32:18",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -130,7 +130,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 3183,
+                      "id": 3171,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
                       "src": "151:7:18",
@@ -139,7 +139,7 @@
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 3184,
+                    "id": 3172,
                     "nodeType": "ArrayTypeName",
                     "src": "151:9:18",
                     "typeDescriptions": {
@@ -153,17 +153,17 @@
               "src": "108:82:18"
             },
             "returnParameters": {
-              "id": 3189,
+              "id": 3177,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3188,
+                  "id": 3176,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3190,
+                  "scope": 3178,
                   "src": "214:4:18",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -172,7 +172,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3187,
+                    "id": 3175,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "214:4:18",
@@ -186,14 +186,14 @@
               ],
               "src": "213:6:18"
             },
-            "scope": 3191,
+            "scope": 3179,
             "src": "93:127:18",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3192,
+        "scope": 3180,
         "src": "61:162:18",
         "usedErrors": []
       }
@@ -206,7 +206,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2024-04-27T02:13:15.219Z",
+  "updatedAt": "2024-04-27T13:40:14.580Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
