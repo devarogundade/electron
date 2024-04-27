@@ -11,15 +11,16 @@ import { createWeb3Modal } from '@web3modal/wagmi/vue';
 import { useWeb3Modal } from '@web3modal/wagmi/vue';
 import { watchAccount } from '@wagmi/core';
 
+import { useStore } from 'vuex';
+import { key } from '../store';
+import Converter from '@/scripts/converter';
+import { getPositions, getLoans, getPools } from '@/scripts/subgraph';
+import { getToken } from '@/scripts/tokens';
+
 const borrowPop = ref<object | null>(null);
 const supplyPop = ref<object | null>(null);
 const withdrawPop = ref<object | null>(null);
 const repayPop = ref<object | null>(null);
-
-import { useStore } from 'vuex';
-import { key } from '../store';
-import Converter from '@/scripts/converter';
-import { getLoan, getLoans, getPools } from '@/scripts/subgraph';
 
 const store = useStore(key);
 
@@ -33,6 +34,15 @@ createWeb3Modal({
 
 const modal = useWeb3Modal();
 
+const initialize = async () => {
+  store.commit('setPools', await getPools());
+
+  if (store.state.address) {
+    store.commit('setPositions', await getPositions(store.state.address));
+    store.commit('setLoans', await getLoans(store.state.address));
+  }
+};
+
 onMounted(() => {
   watchAccount(config, {
     onChange(account: any) {
@@ -41,16 +51,9 @@ onMounted(() => {
       initialize();
     },
   });
+
+  initialize();
 });
-
-const initialize = async () => {
-  store.commit('setPools', await getPools());
-
-  if (store.state.address) {
-    store.commit('setLoans', await getLoans(store.state.address));
-  }
-}
-
 </script>
 
 <template>
@@ -93,31 +96,31 @@ const initialize = async () => {
               </tr>
             </thead>
 
-            <tbody v-for="index in 4">
-              <tr>
+            <tbody>
+              <tr v-for="pool, index in store.state.pools" :key="index">
                 <td>
                   <div class="token">
                     <img src="../assets/eth.png" alt="">
-                    <p>Ethereum</p>
+                    <p>{{ getToken(pool.collateral)!!.name }}</p>
                   </div>
                 </td>
                 <td>
-                  <p>$101,876.73</p>
+                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateral)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>$45,454.21</p>
+                  <p>0.00 {{ getToken(pool.collateral)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>$53,234.32</p>
+                  <p>${{ getToken(pool.principalId)!!.name }}</p>
                 </td>
                 <td>
-                  <p>5.32%</p>
+                  <p>{{ pool.interest }}%</p>
                 </td>
                 <td>
-                  <button @click="supplyPop = { collateralId: 'Ethereum' }">Supply</button>
+                  <button @click="supplyPop = pool">Supply</button>
                 </td>
                 <td>
-                  <button @click="withdrawPop = { collateralId: 'Ethereum' }">Withdraw</button>
+                  <button @click="withdrawPop = pool">Withdraw</button>
                 </td>
               </tr>
             </tbody>
@@ -142,31 +145,31 @@ const initialize = async () => {
               </tr>
             </thead>
 
-            <tbody v-for="index in 3">
-              <tr>
+            <tbody>
+              <tr v-for="pool, index in store.state.pools" :key="index">
                 <td>
                   <div class="token">
                     <img src="../assets/eth.png" alt="">
-                    <p>Ethereum</p>
+                    <p>{{ getToken(pool.collateral)!!.name }}</p>
                   </div>
                 </td>
                 <td>
-                  <p>$101,876.73</p>
+                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateral)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>$45,454.21</p>
+                  <p>0.00 {{ getToken(pool.collateral)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>$53,234.32</p>
+                  <p>${{ getToken(pool.principalId)!!.name }}</p>
                 </td>
                 <td>
-                  <p>5.32%</p>
+                  <p>{{ pool.interest }}%</p>
                 </td>
                 <td>
-                  <button @click="borrowPop = { collateralId: 'Ethereum' }">Borrow</button>
+                  <button @click="borrowPop = pool">Borrow</button>
                 </td>
                 <td>
-                  <button @click="repayPop = { collateralId: 'Ethereum' }">Repay</button>
+                  <button @click="repayPop = pool">Repay</button>
                 </td>
               </tr>
             </tbody>
@@ -175,14 +178,12 @@ const initialize = async () => {
       </div>
     </div>
 
-
-    <!-- end of website -->
     <br> <br> <br> <br>
 
-    <BorrowPopup v-if="borrowPop?.valueOf()" v-on:close=" borrowPop = null" />
-    <SupplyPopup v-if="supplyPop?.valueOf()" v-on:close=" supplyPop = null" />
-    <WithdrawPopup v-if="withdrawPop?.valueOf()" v-on:close=" withdrawPop = null" />
-    <RepayPopup v-if="repayPop?.valueOf()" v-on:close=" repayPop = null" />
+    <BorrowPopup v-if="borrowPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" borrowPop = null" />
+    <SupplyPopup v-if="supplyPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" supplyPop = null" />
+    <WithdrawPopup v-if="withdrawPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" withdrawPop = null" />
+    <RepayPopup v-if="repayPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" repayPop = null" />
   </main>
 </template>
 

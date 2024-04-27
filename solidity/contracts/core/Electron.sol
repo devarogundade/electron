@@ -12,6 +12,8 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
+/// @title Electron
+/// @author @devarogundade
 contract Electron is IElectron, Ownable2Step {
     using SafeERC20 for ERC20;
 
@@ -86,7 +88,7 @@ contract Electron is IElectron, Ownable2Step {
         for (uint index = 0; index < proofs.length; index++) {
             (bool valid, uint8 points) = _verifier.verify(proofs[index]);
             if (!valid) {
-                revert();
+                revert InvalidProof();
             }
 
             totalLtv += points;
@@ -107,7 +109,7 @@ contract Electron is IElectron, Ownable2Step {
 
         // Convert worth of principal back to principal
         uint256 principal = _feed.convertFromTo(
-            _feed.getUsd(),
+            _feed.getUsdId(),
             pool.principalId,
             principalInUsd
         );
@@ -195,5 +197,24 @@ contract Electron is IElectron, Ownable2Step {
 
         // Transfer tokens to account
         ERC20(tokenId).safeTransfer(account, amount);
+    }
+
+    function calculateLtv(
+        uint256 poolId,
+        Data.Proof[] memory proofs
+    ) external view override returns (uint256) {
+        uint8 totalLtv = DEFAULT_LTV;
+
+        for (uint index = 0; index < proofs.length; index++) {
+            (bool valid, uint8 points) = _verifier.verify(proofs[index]);
+
+            if (!valid) {
+                revert InvalidProof();
+            }
+
+            totalLtv += points;
+        }
+
+        return totalLtv;
     }
 }

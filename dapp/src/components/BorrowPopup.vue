@@ -1,11 +1,64 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import ArrowDownIcon from './ArrowDownIcon.vue';
+import { onMounted, ref } from 'vue';
+// import ArrowDownIcon from './ArrowDownIcon.vue';
+
+import { useStore } from 'vuex';
+import { key } from '../store';
+import { borrow } from '@/scripts/electron';
+import type { Position, Proof } from '@/types';
+import { getLoans, getPosition } from '@/scripts/subgraph';
+import Converter from '@/scripts/converter';
+import { getToken } from '@/scripts/tokens';
+
+const store = useStore(key);
 
 const isDropdown = ref(false);
 
+const progress = ref(false);
+
 const emit = defineEmits(['close', 'unClose']);
 
+const props = defineProps({
+    pool: { type: Object, required: true }
+});
+
+const borrowLoan = async () => {
+    if (progress.value) return;
+    progress.value = true;
+
+    const proofs: Proof[] = [];
+
+    const hash = await borrow(
+        props.pool.poolId,
+        proofs
+    );
+
+    console.log(hash);
+
+    if (!hash) {
+
+    } else {
+        if (store.state.address) {
+            store.commit('setLoans', await getLoans(store.state.address));
+        }
+
+        emit('close');
+    }
+
+    progress.value = false;
+};
+
+const position = ref<Position | null>(null);
+
+const initialize = async () => {
+    if (store.state.address) {
+        position.value = await getPosition(props.pool.poolId, store.state.address);
+    }
+};
+
+onMounted(() => {
+    initialize();
+});
 </script>
 
 <template>
@@ -19,14 +72,17 @@ const emit = defineEmits(['close', 'unClose']);
 
                 <div class="borrow">
                     <div class="label">Collateral</div>
+
                     <br>
+
                     <div class="input_wrapper">
-                        <input type="text" placeholder="0.00">
+                        <input type="number" placeholder="0.00" disabled
+                            :value="Converter.fromWei(position?.collateral || '0')">
                         <div class="token_drowndown">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                    <img src="../assets/eth.png" alt="">
-                                    <p>Eth</p>
+                                    <img :src="getToken(props.pool.collateralId)!!.image" alt="">
+                                    <p>{{ getToken(props.pool.collateralId)!!.name }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>
@@ -36,9 +92,13 @@ const emit = defineEmits(['close', 'unClose']);
                     <br> <br>
 
                     <div class="label ">Loan-To-Value</div>
+
                     <br>
+
                     <p class="ltv">Your current loan to value ratio is <span>80%</span></p>
+
                     <br>
+
                     <div class="zk_proofs">
                         <table>
                             <thead>
@@ -94,39 +154,29 @@ const emit = defineEmits(['close', 'unClose']);
                     <br> <br>
 
                     <div class="label">Principal</div>
+
                     <br>
+
                     <div class="input_wrapper">
-                        <input type="text" placeholder="0.00">
+                        <!-- Calculate with preview -->
+                        <input type="number" placeholder="0.00" disabled :value="'100'">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                    <img src="../assets/link.png" alt="">
-                                    <p>Link</p>
+                                    <img :src="getToken(props.pool.principalId)!!.image" alt="">
+                                    <p>{{ getToken(props.pool.principalId)!!.name }}</p>
                                 </div>
-                                <ArrowDownIcon />
-                            </div>
-                            <div class="tokens" v-if="isDropdown">
-                                <div class="token">
-                                    <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                        <img src="../assets/eth.png" alt="">
-                                        <p>Eth</p>
-                                    </div>
-                                </div>
-                                <div class="token">
-                                    <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                        <img src="../assets/link.png" alt="">
-                                        <p>Link</p>
-                                    </div>
-                                </div>
+                                <!-- <ArrowDownIcon /> -->
                             </div>
                         </div>
                     </div>
 
                     <br> <br>
 
-                    <button class="action">Borrow</button>
+                    <button class="action" @click="borrowLoan">
+                        {{ progress.valueOf() ? 'Borrowing..' : 'Borrow' }}
+                    </button>
                 </div>
-
 
                 <br> <br>
             </div>

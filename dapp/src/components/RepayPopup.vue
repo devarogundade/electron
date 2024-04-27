@@ -1,11 +1,59 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import ArrowDownIcon from './ArrowDownIcon.vue';
+import type { Loan } from '@/types';
+import { onMounted, ref } from 'vue';
+// import ArrowDownIcon from './ArrowDownIcon.vue';
+
+import { useStore } from 'vuex';
+import { key } from '../store';
+import { repay } from '@/scripts/electron';
+import Converter from '@/scripts/converter';
+import { getLoan, getLoans } from '@/scripts/subgraph';
+import { getToken } from '@/scripts/tokens';
+
+const store = useStore(key);
 
 const isDropdown = ref(false);
 
+const progress = ref(false);
+
 const emit = defineEmits(['close', 'unClose']);
 
+const props = defineProps({
+    pool: { type: Object, required: true }
+});
+
+const repayLoan = async () => {
+    if (progress.value) return;
+    progress.value = true;
+
+    const hash = await repay(props.pool.poolId);
+
+    console.log(hash);
+
+    if (!hash) {
+
+    } else {
+        if (store.state.address) {
+            store.commit('setLoans', await getLoans(store.state.address));
+        }
+
+        emit('close');
+    }
+
+    progress.value = false;
+};
+
+const loan = ref<Loan | null>(null);
+
+const initialize = async () => {
+    if (store.state.address) {
+        loan.value = await getLoan(props.pool.poolId, store.state.address);
+    }
+};
+
+onMounted(() => {
+    initialize();
+});
 </script>
 
 <template>
@@ -21,22 +69,32 @@ const emit = defineEmits(['close', 'unClose']);
                     <div class="label">Amount</div>
                     <br>
                     <div class="input_wrapper">
-                        <input type="text" placeholder="0.00">
+                        <input type="number" placeholder="0.00" disabled
+                            :value="Converter.fromWei(loan?.principal || '0')">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                    <img src="../assets/link.png" alt="">
-                                    <p>Link</p>
+                                    <img :src="getToken(props.pool.principalId)!!.image" alt="">
+                                    <p>{{ getToken(props.pool.principalId)!!.name }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>
                         </div>
                     </div>
+
                     <br>
-                    <div class="label">Borrowed + Accrued: 5.3 Eth</div>
+
+                    <div class="label">
+                        Borrowed:
+                        {{ loan?.principal }}
+                        {{ getToken(props.pool.principalId)!!.symbol }}
+                    </div>
+
                     <br> <br>
 
-                    <button class="action">Repay</button>
+                    <button class="action" @click="repayLoan">
+                        {{ progress.valueOf() ? 'Repaying..' : 'Repay' }}
+                    </button>
                 </div>
 
                 <br> <br>

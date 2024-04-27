@@ -44,13 +44,13 @@ export async function withdraw(poolId: number) {
     }
 }
 
-export async function borrow(poolId: number, collateral: string, proofs: Proof[]) {
+export async function borrow(poolId: number, proofs: Proof[]) {
     try {
         const result = await writeContract(config, {
             abi: abi,
             address: electronId,
             functionName: 'repay',
-            args: [poolId, collateral, proofs]
+            args: [poolId, proofs]
         });
 
         const receipt = await waitForTransactionReceipt(config, { hash: result });

@@ -1,11 +1,59 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { getPosition, getPositions } from '@/scripts/subgraph';
+import { getToken } from '@/scripts/tokens';
+import type { Position } from '@/types';
+import { onMounted, ref } from 'vue';
 // import ArrowDownIcon from './ArrowDownIcon.vue';
+
+import { useStore } from 'vuex';
+import { key } from '../store';
+import { withdraw } from '@/scripts/electron';
+import Converter from '@/scripts/converter';
+
+const store = useStore(key);
 
 const isDropdown = ref(false);
 
+const progress = ref(false);
+
 const emit = defineEmits(['close', 'unClose']);
 
+const props = defineProps({
+    pool: { type: Object, required: true }
+});
+
+const withdrawCollateral = async () => {
+    if (progress.value) return;
+    progress.value = true;
+
+    const hash = await withdraw(props.pool.poolId);
+
+    console.log(hash);
+
+    if (!hash) {
+
+    } else {
+        if (store.state.address) {
+            store.commit('setPositions', await getPositions(store.state.address));
+        }
+
+        emit('close');
+    }
+
+    progress.value = false;
+};
+
+const position = ref<Position | null>(null);
+
+const initialize = async () => {
+    if (store.state.address) {
+        position.value = await getPosition(props.pool.poolId, store.state.address);
+    }
+};
+
+onMounted(() => {
+    initialize();
+});
 </script>
 
 <template>
@@ -19,26 +67,37 @@ const emit = defineEmits(['close', 'unClose']);
 
                 <div class="borrow">
                     <div class="label">Amount</div>
+
                     <br>
+
                     <div class="input_wrapper">
-                        <input type="text" placeholder="0.00">
+                        <input type="number" placeholder="0.00" disabled
+                            :value="Converter.fromWei(position?.collateral || '0')">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                    <img src="../assets/link.png" alt="">
-                                    <p>Link</p>
+                                    <img :src="getToken(props.pool.collateralId)!!.image" alt="">
+                                    <p>{{ getToken(props.pool.collateralId)!!.name }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>
                         </div>
                     </div>
+
                     <br>
-                    <div class="label">Available + Interest: 5.3 Eth</div>
+
+                    <div class="label">
+                        Available:
+                        {{ position?.collateral }}
+                        {{ getToken(props.pool.collateralId)!!.symbol }}
+                    </div>
+
                     <br> <br>
 
-                    <button class="action">Withdraw</button>
+                    <button class="action" @click="withdrawCollateral">
+                        {{ progress.valueOf() ? 'Withdrawing..' : 'Withdraw' }}
+                    </button>
                 </div>
-
 
                 <br> <br>
             </div>

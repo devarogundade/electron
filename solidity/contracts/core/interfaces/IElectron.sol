@@ -4,6 +4,7 @@ pragma solidity ^0.8.17;
 import {Data} from "../libraries/Data.sol";
 
 interface IElectron {
+    error InvalidProof();
     error HasPendingLoan();
 
     event NewPool(
@@ -47,4 +48,9 @@ interface IElectron {
     function withdraw(uint256 poolId) external;
 
     function repay(uint256 poolId) external;
+
+    function calculateLtv(
+        uint256 poolId,
+        Data.Proof[] memory proofs
+    ) external view returns (uint256);
 }

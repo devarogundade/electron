@@ -9,7 +9,7 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 /// @title DataFeed powered by chainlink datafeeds
 /// @author Arogundade Ibrahim
 contract DataFeed is IDataFeed, Ownable2Step {
-    address private _usd;
+    address private _usdId;
     mapping(address => address) _priceFeeds;
 
     constructor() Ownable2Step() {}
@@ -24,10 +24,10 @@ contract DataFeed is IDataFeed, Ownable2Step {
         emit NewPriceFeed(tokenId, priceFeed);
     }
 
-    function addUsdFeed(address usd) external onlyOwner {
+    function addUsdFeed(address usdId) external onlyOwner {
         // Set usdc price feed
-        _usd = usd;
-        _priceFeeds[usd] = usd;
+        _usdId = usdId;
+        _priceFeeds[usdId] = usdId;
     }
 
     function getPriceData(
@@ -56,11 +56,11 @@ contract DataFeed is IDataFeed, Ownable2Step {
         address tokenId,
         uint256 amount
     ) external view override returns (uint256) {
-        return convertFromTo(tokenId, _usd, amount);
+        return convertFromTo(tokenId, _usdId, amount);
     }
 
-    function getUsd() external view override returns (address) {
-        return _usd;
+    function getUsdId() external view override returns (address) {
+        return _usdId;
     }
 
     function convertFromTo(

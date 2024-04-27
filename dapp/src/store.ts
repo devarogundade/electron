@@ -1,4 +1,4 @@
-import type { Pool } from './types';
+import type { Loan, Pool, Position } from './types';
 import type { InjectionKey } from 'vue';
 // @ts-ignore
 import { createStore, Store } from 'vuex';
@@ -7,6 +7,8 @@ import { createStore, Store } from 'vuex';
 export interface State {
     address: string;
     pools: Pool[];
+    positions: Position[];
+    loans: Loan[];
 }
 
 // define injection key
@@ -15,7 +17,9 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
     state: {
         address: null,
-        pools: []
+        pools: [],
+        positions: [],
+        loans: []
     },
     mutations: {
         setAddress(state: State, newAddress: string) {
@@ -23,6 +27,12 @@ export const store = createStore<State>({
         },
         setPools(state: State, pools: Pool[]) {
             state.pools = pools;
+        },
+        setPositions(state: State, positions: Position[]) {
+            state.positions = positions;
+        },
+        setLoans(state: State, loans: Loan[]) {
+            state.loans = loans;
         }
     }
 });

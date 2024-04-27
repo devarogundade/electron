@@ -176,27 +176,27 @@
     "absolutePath": "project:/contracts/zk/Verifier.sol",
     "exportedSymbols": {
       "Data": [
-        3073
+        3141
       ],
       "IUltraVerifier": [
-        3179
+        3247
       ],
       "IVerifier": [
-        3194
+        3262
       ],
       "Ownable2Step": [
         241
       ],
       "Verifier": [
-        3166
+        3234
       ]
     },
-    "id": 3167,
+    "id": 3235,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3075,
+        "id": 3143,
         "literals": [
           "solidity",
           "^",
@@ -209,20 +209,20 @@
       {
         "absolutePath": "project:/contracts/core/libraries/Data.sol",
         "file": "../core/libraries/Data.sol",
-        "id": 3077,
+        "id": 3145,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3167,
-        "sourceUnit": 3074,
+        "scope": 3235,
+        "sourceUnit": 3142,
         "src": "61:48:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 3076,
+              "id": 3144,
               "name": "Data",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 3073,
+              "referencedDeclaration": 3141,
               "src": "69:4:17",
               "typeDescriptions": {}
             },
@@ -234,20 +234,20 @@
       {
         "absolutePath": "project:/contracts/zk/interfaces/IVerifier.sol",
         "file": "./interfaces/IVerifier.sol",
-        "id": 3079,
+        "id": 3147,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3167,
-        "sourceUnit": 3195,
+        "scope": 3235,
+        "sourceUnit": 3263,
         "src": "113:53:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 3078,
+              "id": 3146,
               "name": "IVerifier",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 3194,
+              "referencedDeclaration": 3262,
               "src": "121:9:17",
               "typeDescriptions": {}
             },
@@ -259,20 +259,20 @@
       {
         "absolutePath": "project:/contracts/zk/interfaces/IUltraVerifier.sol",
         "file": "./interfaces/IUltraVerifier.sol",
-        "id": 3081,
+        "id": 3149,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3167,
-        "sourceUnit": 3180,
+        "scope": 3235,
+        "sourceUnit": 3248,
         "src": "168:63:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 3080,
+              "id": 3148,
               "name": "IUltraVerifier",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 3179,
+              "referencedDeclaration": 3247,
               "src": "176:14:17",
               "typeDescriptions": {}
             },
@@ -284,16 +284,16 @@
       {
         "absolutePath": "@openzeppelin/contracts/access/Ownable2Step.sol",
         "file": "@openzeppelin/contracts/access/Ownable2Step.sol",
-        "id": 3083,
+        "id": 3151,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3167,
+        "scope": 3235,
         "sourceUnit": 242,
         "src": "235:77:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 3082,
+              "id": 3150,
               "name": "Ownable2Step",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
@@ -311,22 +311,22 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 3084,
+              "id": 3152,
               "name": "IVerifier",
               "nameLocations": [
                 "337:9:17"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3194,
+              "referencedDeclaration": 3262,
               "src": "337:9:17"
             },
-            "id": 3085,
+            "id": 3153,
             "nodeType": "InheritanceSpecifier",
             "src": "337:9:17"
           },
           {
             "baseName": {
-              "id": 3086,
+              "id": 3154,
               "name": "Ownable2Step",
               "nameLocations": [
                 "348:12:17"
@@ -335,7 +335,7 @@
               "referencedDeclaration": 241,
               "src": "348:12:17"
             },
-            "id": 3087,
+            "id": 3155,
             "nodeType": "InheritanceSpecifier",
             "src": "348:12:17"
           }
@@ -344,13 +344,13 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 3166,
+        "id": 3234,
         "linearizedBaseContracts": [
-          3166,
+          3234,
           241,
           158,
           1695,
-          3194
+          3262
         ],
         "name": "Verifier",
         "nameLocation": "325:8:17",
@@ -358,23 +358,23 @@
         "nodes": [
           {
             "constant": false,
-            "id": 3092,
+            "id": 3160,
             "mutability": "mutable",
             "name": "_verifiers",
             "nameLocation": "410:10:17",
             "nodeType": "VariableDeclaration",
-            "scope": 3166,
+            "scope": 3234,
             "src": "368:52:17",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3028_storage_$",
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3096_storage_$",
               "typeString": "mapping(bytes32 => struct Data.Verifier)"
             },
             "typeName": {
-              "id": 3091,
+              "id": 3159,
               "keyType": {
-                "id": 3088,
+                "id": 3156,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "376:7:17",
@@ -386,27 +386,27 @@
               "nodeType": "Mapping",
               "src": "368:33:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3028_storage_$",
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3096_storage_$",
                 "typeString": "mapping(bytes32 => struct Data.Verifier)"
               },
               "valueType": {
-                "id": 3090,
+                "id": 3158,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 3089,
+                  "id": 3157,
                   "name": "Data.Verifier",
                   "nameLocations": [
                     "387:4:17",
                     "392:8:17"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 3028,
+                  "referencedDeclaration": 3096,
                   "src": "387:13:17"
                 },
-                "referencedDeclaration": 3028,
+                "referencedDeclaration": 3096,
                 "src": "387:13:17",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Verifier_$3028_storage_ptr",
+                  "typeIdentifier": "t_struct$_Verifier_$3096_storage_ptr",
                   "typeString": "struct Data.Verifier"
                 }
               }
@@ -415,21 +415,21 @@
           },
           {
             "body": {
-              "id": 3097,
+              "id": 3165,
               "nodeType": "Block",
               "src": "458:2:17",
               "statements": []
             },
-            "id": 3098,
+            "id": 3166,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
               {
                 "arguments": [],
-                "id": 3095,
+                "id": 3163,
                 "kind": "baseConstructorSpecifier",
                 "modifierName": {
-                  "id": 3094,
+                  "id": 3162,
                   "name": "Ownable2Step",
                   "nameLocations": [
                     "443:12:17"
@@ -446,18 +446,18 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3093,
+              "id": 3161,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "440:2:17"
             },
             "returnParameters": {
-              "id": 3096,
+              "id": 3164,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "458:0:17"
             },
-            "scope": 3166,
+            "scope": 3234,
             "src": "429:31:17",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -465,88 +465,88 @@
           },
           {
             "baseFunctions": [
-              3193
+              3261
             ],
             "body": {
-              "id": 3142,
+              "id": 3210,
               "nodeType": "Block",
               "src": "572:290:17",
               "statements": [
                 {
                   "assignments": [
-                    3111
+                    3179
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3111,
+                      "id": 3179,
                       "mutability": "mutable",
                       "name": "verifier",
                       "nameLocation": "598:8:17",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3142,
+                      "scope": 3210,
                       "src": "583:23:17",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_IUltraVerifier_$3179",
+                        "typeIdentifier": "t_contract$_IUltraVerifier_$3247",
                         "typeString": "contract IUltraVerifier"
                       },
                       "typeName": {
-                        "id": 3110,
+                        "id": 3178,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 3109,
+                          "id": 3177,
                           "name": "IUltraVerifier",
                           "nameLocations": [
                             "583:14:17"
                           ],
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 3179,
+                          "referencedDeclaration": 3247,
                           "src": "583:14:17"
                         },
-                        "referencedDeclaration": 3179,
+                        "referencedDeclaration": 3247,
                         "src": "583:14:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_IUltraVerifier_$3179",
+                          "typeIdentifier": "t_contract$_IUltraVerifier_$3247",
                           "typeString": "contract IUltraVerifier"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3119,
+                  "id": 3187,
                   "initialValue": {
                     "arguments": [
                       {
                         "expression": {
                           "baseExpression": {
-                            "id": 3113,
+                            "id": 3181,
                             "name": "_verifiers",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3092,
+                            "referencedDeclaration": 3160,
                             "src": "638:10:17",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3028_storage_$",
+                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3096_storage_$",
                               "typeString": "mapping(bytes32 => struct Data.Verifier storage ref)"
                             }
                           },
-                          "id": 3116,
+                          "id": 3184,
                           "indexExpression": {
                             "expression": {
-                              "id": 3114,
+                              "id": 3182,
                               "name": "proof",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3101,
+                              "referencedDeclaration": 3169,
                               "src": "649:5:17",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Proof_$3036_calldata_ptr",
+                                "typeIdentifier": "t_struct$_Proof_$3104_calldata_ptr",
                                 "typeString": "struct Data.Proof calldata"
                               }
                             },
-                            "id": 3115,
+                            "id": 3183,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -554,7 +554,7 @@
                             "memberLocation": "655:7:17",
                             "memberName": "proofId",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3030,
+                            "referencedDeclaration": 3098,
                             "src": "649:13:17",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
@@ -568,11 +568,11 @@
                           "nodeType": "IndexAccess",
                           "src": "638:25:17",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Verifier_$3028_storage",
+                            "typeIdentifier": "t_struct$_Verifier_$3096_storage",
                             "typeString": "struct Data.Verifier storage ref"
                           }
                         },
-                        "id": 3117,
+                        "id": 3185,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
@@ -580,7 +580,7 @@
                         "memberLocation": "664:10:17",
                         "memberName": "verifierId",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3025,
+                        "referencedDeclaration": 3093,
                         "src": "638:36:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -595,18 +595,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 3112,
+                      "id": 3180,
                       "name": "IUltraVerifier",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3179,
+                      "referencedDeclaration": 3247,
                       "src": "609:14:17",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_IUltraVerifier_$3179_$",
+                        "typeIdentifier": "t_type$_t_contract$_IUltraVerifier_$3247_$",
                         "typeString": "type(contract IUltraVerifier)"
                       }
                     },
-                    "id": 3118,
+                    "id": 3186,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -618,7 +618,7 @@
                     "src": "609:76:17",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IUltraVerifier_$3179",
+                      "typeIdentifier": "t_contract$_IUltraVerifier_$3247",
                       "typeString": "contract IUltraVerifier"
                     }
                   },
@@ -627,17 +627,17 @@
                 },
                 {
                   "assignments": [
-                    3121
+                    3189
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3121,
+                      "id": 3189,
                       "mutability": "mutable",
                       "name": "verified",
                       "nameLocation": "703:8:17",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3142,
+                      "scope": 3210,
                       "src": "698:13:17",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -646,7 +646,7 @@
                         "typeString": "bool"
                       },
                       "typeName": {
-                        "id": 3120,
+                        "id": 3188,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "698:4:17",
@@ -658,23 +658,23 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3129,
+                  "id": 3197,
                   "initialValue": {
                     "arguments": [
                       {
                         "expression": {
-                          "id": 3124,
+                          "id": 3192,
                           "name": "proof",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3101,
+                          "referencedDeclaration": 3169,
                           "src": "730:5:17",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Proof_$3036_calldata_ptr",
+                            "typeIdentifier": "t_struct$_Proof_$3104_calldata_ptr",
                             "typeString": "struct Data.Proof calldata"
                           }
                         },
-                        "id": 3125,
+                        "id": 3193,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -682,7 +682,7 @@
                         "memberLocation": "736:4:17",
                         "memberName": "data",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3035,
+                        "referencedDeclaration": 3103,
                         "src": "730:10:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes_calldata_ptr",
@@ -691,18 +691,18 @@
                       },
                       {
                         "expression": {
-                          "id": 3126,
+                          "id": 3194,
                           "name": "proof",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3101,
+                          "referencedDeclaration": 3169,
                           "src": "742:5:17",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Proof_$3036_calldata_ptr",
+                            "typeIdentifier": "t_struct$_Proof_$3104_calldata_ptr",
                             "typeString": "struct Data.Proof calldata"
                           }
                         },
-                        "id": 3127,
+                        "id": 3195,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -710,7 +710,7 @@
                         "memberLocation": "748:9:17",
                         "memberName": "pubInputs",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3033,
+                        "referencedDeclaration": 3101,
                         "src": "742:15:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_bytes32_$dyn_calldata_ptr",
@@ -730,18 +730,18 @@
                         }
                       ],
                       "expression": {
-                        "id": 3122,
+                        "id": 3190,
                         "name": "verifier",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3111,
+                        "referencedDeclaration": 3179,
                         "src": "714:8:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_IUltraVerifier_$3179",
+                          "typeIdentifier": "t_contract$_IUltraVerifier_$3247",
                           "typeString": "contract IUltraVerifier"
                         }
                       },
-                      "id": 3123,
+                      "id": 3191,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -749,14 +749,14 @@
                       "memberLocation": "723:6:17",
                       "memberName": "verify",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3178,
+                      "referencedDeclaration": 3246,
                       "src": "714:15:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_bytes_memory_ptr_$_t_array$_t_bytes32_$dyn_memory_ptr_$returns$_t_bool_$",
                         "typeString": "function (bytes memory,bytes32[] memory) view external returns (bool)"
                       }
                     },
-                    "id": 3128,
+                    "id": 3196,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -777,17 +777,17 @@
                 },
                 {
                   "assignments": [
-                    3131
+                    3199
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3131,
+                      "id": 3199,
                       "mutability": "mutable",
                       "name": "points",
                       "nameLocation": "775:6:17",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3142,
+                      "scope": 3210,
                       "src": "769:12:17",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -796,7 +796,7 @@
                         "typeString": "uint8"
                       },
                       "typeName": {
-                        "id": 3130,
+                        "id": 3198,
                         "name": "uint8",
                         "nodeType": "ElementaryTypeName",
                         "src": "769:5:17",
@@ -808,36 +808,36 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3137,
+                  "id": 3205,
                   "initialValue": {
                     "expression": {
                       "baseExpression": {
-                        "id": 3132,
+                        "id": 3200,
                         "name": "_verifiers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3092,
+                        "referencedDeclaration": 3160,
                         "src": "784:10:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3028_storage_$",
+                          "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3096_storage_$",
                           "typeString": "mapping(bytes32 => struct Data.Verifier storage ref)"
                         }
                       },
-                      "id": 3135,
+                      "id": 3203,
                       "indexExpression": {
                         "expression": {
-                          "id": 3133,
+                          "id": 3201,
                           "name": "proof",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3101,
+                          "referencedDeclaration": 3169,
                           "src": "795:5:17",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Proof_$3036_calldata_ptr",
+                            "typeIdentifier": "t_struct$_Proof_$3104_calldata_ptr",
                             "typeString": "struct Data.Proof calldata"
                           }
                         },
-                        "id": 3134,
+                        "id": 3202,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -845,7 +845,7 @@
                         "memberLocation": "801:7:17",
                         "memberName": "proofId",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3030,
+                        "referencedDeclaration": 3098,
                         "src": "795:13:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -859,11 +859,11 @@
                       "nodeType": "IndexAccess",
                       "src": "784:25:17",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Verifier_$3028_storage",
+                        "typeIdentifier": "t_struct$_Verifier_$3096_storage",
                         "typeString": "struct Data.Verifier storage ref"
                       }
                     },
-                    "id": 3136,
+                    "id": 3204,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
@@ -871,7 +871,7 @@
                     "memberLocation": "810:6:17",
                     "memberName": "points",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 3027,
+                    "referencedDeclaration": 3095,
                     "src": "784:32:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
@@ -885,11 +885,11 @@
                   "expression": {
                     "components": [
                       {
-                        "id": 3138,
+                        "id": 3206,
                         "name": "verified",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3121,
+                        "referencedDeclaration": 3189,
                         "src": "837:8:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -897,11 +897,11 @@
                         }
                       },
                       {
-                        "id": 3139,
+                        "id": 3207,
                         "name": "points",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3131,
+                        "referencedDeclaration": 3199,
                         "src": "847:6:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint8",
@@ -909,7 +909,7 @@
                         }
                       }
                     ],
-                    "id": 3140,
+                    "id": 3208,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
@@ -922,15 +922,15 @@
                       "typeString": "tuple(bool,uint8)"
                     }
                   },
-                  "functionReturnParameters": 3108,
-                  "id": 3141,
+                  "functionReturnParameters": 3176,
+                  "id": 3209,
                   "nodeType": "Return",
                   "src": "829:25:17"
                 }
               ]
             },
             "functionSelector": "ccc9ebb2",
-            "id": 3143,
+            "id": 3211,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -938,48 +938,48 @@
             "nameLocation": "477:6:17",
             "nodeType": "FunctionDefinition",
             "overrides": {
-              "id": 3103,
+              "id": 3171,
               "nodeType": "OverrideSpecifier",
               "overrides": [],
               "src": "541:8:17"
             },
             "parameters": {
-              "id": 3102,
+              "id": 3170,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3101,
+                  "id": 3169,
                   "mutability": "mutable",
                   "name": "proof",
                   "nameLocation": "514:5:17",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3143,
+                  "scope": 3211,
                   "src": "494:25:17",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Proof_$3036_calldata_ptr",
+                    "typeIdentifier": "t_struct$_Proof_$3104_calldata_ptr",
                     "typeString": "struct Data.Proof"
                   },
                   "typeName": {
-                    "id": 3100,
+                    "id": 3168,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3099,
+                      "id": 3167,
                       "name": "Data.Proof",
                       "nameLocations": [
                         "494:4:17",
                         "499:5:17"
                       ],
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3036,
+                      "referencedDeclaration": 3104,
                       "src": "494:10:17"
                     },
-                    "referencedDeclaration": 3036,
+                    "referencedDeclaration": 3104,
                     "src": "494:10:17",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Proof_$3036_storage_ptr",
+                      "typeIdentifier": "t_struct$_Proof_$3104_storage_ptr",
                       "typeString": "struct Data.Proof"
                     }
                   },
@@ -989,17 +989,17 @@
               "src": "483:43:17"
             },
             "returnParameters": {
-              "id": 3108,
+              "id": 3176,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3105,
+                  "id": 3173,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3143,
+                  "scope": 3211,
                   "src": "559:4:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1008,7 +1008,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3104,
+                    "id": 3172,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "559:4:17",
@@ -1021,12 +1021,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3107,
+                  "id": 3175,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3143,
+                  "scope": 3211,
                   "src": "565:5:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1035,7 +1035,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 3106,
+                    "id": 3174,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "565:5:17",
@@ -1049,7 +1049,7 @@
               ],
               "src": "558:13:17"
             },
-            "scope": 3166,
+            "scope": 3234,
             "src": "468:394:17",
             "stateMutability": "view",
             "virtual": false,
@@ -1057,37 +1057,37 @@
           },
           {
             "body": {
-              "id": 3164,
+              "id": 3232,
               "nodeType": "Block",
               "src": "992:133:17",
               "statements": [
                 {
                   "expression": {
-                    "id": 3162,
+                    "id": 3230,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 3154,
+                        "id": 3222,
                         "name": "_verifiers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3092,
+                        "referencedDeclaration": 3160,
                         "src": "1003:10:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3028_storage_$",
+                          "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Verifier_$3096_storage_$",
                           "typeString": "mapping(bytes32 => struct Data.Verifier storage ref)"
                         }
                       },
-                      "id": 3156,
+                      "id": 3224,
                       "indexExpression": {
-                        "id": 3155,
+                        "id": 3223,
                         "name": "proofId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3145,
+                        "referencedDeclaration": 3213,
                         "src": "1014:7:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -1101,7 +1101,7 @@
                       "nodeType": "IndexAccess",
                       "src": "1003:19:17",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Verifier_$3028_storage",
+                        "typeIdentifier": "t_struct$_Verifier_$3096_storage",
                         "typeString": "struct Data.Verifier storage ref"
                       }
                     },
@@ -1110,11 +1110,11 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 3159,
+                          "id": 3227,
                           "name": "verifierId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3147,
+                          "referencedDeclaration": 3215,
                           "src": "1066:10:17",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1122,11 +1122,11 @@
                           }
                         },
                         {
-                          "id": 3160,
+                          "id": 3228,
                           "name": "points",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3149,
+                          "referencedDeclaration": 3217,
                           "src": "1099:6:17",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint8",
@@ -1146,18 +1146,18 @@
                           }
                         ],
                         "expression": {
-                          "id": 3157,
+                          "id": 3225,
                           "name": "Data",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3073,
+                          "referencedDeclaration": 3141,
                           "src": "1025:4:17",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_Data_$3073_$",
+                            "typeIdentifier": "t_type$_t_contract$_Data_$3141_$",
                             "typeString": "type(library Data)"
                           }
                         },
-                        "id": 3158,
+                        "id": 3226,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1165,14 +1165,14 @@
                         "memberLocation": "1030:8:17",
                         "memberName": "Verifier",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3028,
+                        "referencedDeclaration": 3096,
                         "src": "1025:13:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_Verifier_$3028_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_Verifier_$3096_storage_ptr_$",
                           "typeString": "type(struct Data.Verifier storage pointer)"
                         }
                       },
-                      "id": 3161,
+                      "id": 3229,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1190,32 +1190,32 @@
                       "src": "1025:92:17",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Verifier_$3028_memory_ptr",
+                        "typeIdentifier": "t_struct$_Verifier_$3096_memory_ptr",
                         "typeString": "struct Data.Verifier memory"
                       }
                     },
                     "src": "1003:114:17",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Verifier_$3028_storage",
+                      "typeIdentifier": "t_struct$_Verifier_$3096_storage",
                       "typeString": "struct Data.Verifier storage ref"
                     }
                   },
-                  "id": 3163,
+                  "id": 3231,
                   "nodeType": "ExpressionStatement",
                   "src": "1003:114:17"
                 }
               ]
             },
             "functionSelector": "423d3ebc",
-            "id": 3165,
+            "id": 3233,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
-                "id": 3152,
+                "id": 3220,
                 "kind": "modifierInvocation",
                 "modifierName": {
-                  "id": 3151,
+                  "id": 3219,
                   "name": "onlyOwner",
                   "nameLocations": [
                     "982:9:17"
@@ -1232,17 +1232,17 @@
             "nameLocation": "879:8:17",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3150,
+              "id": 3218,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3145,
+                  "id": 3213,
                   "mutability": "mutable",
                   "name": "proofId",
                   "nameLocation": "906:7:17",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3165,
+                  "scope": 3233,
                   "src": "898:15:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1251,7 +1251,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 3144,
+                    "id": 3212,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "898:7:17",
@@ -1264,12 +1264,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3147,
+                  "id": 3215,
                   "mutability": "mutable",
                   "name": "verifierId",
                   "nameLocation": "932:10:17",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3165,
+                  "scope": 3233,
                   "src": "924:18:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1278,7 +1278,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3146,
+                    "id": 3214,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "924:7:17",
@@ -1292,12 +1292,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3149,
+                  "id": 3217,
                   "mutability": "mutable",
                   "name": "points",
                   "nameLocation": "959:6:17",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3165,
+                  "scope": 3233,
                   "src": "953:12:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1306,7 +1306,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 3148,
+                    "id": 3216,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "953:5:17",
@@ -1321,19 +1321,19 @@
               "src": "887:85:17"
             },
             "returnParameters": {
-              "id": 3153,
+              "id": 3221,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "992:0:17"
             },
-            "scope": 3166,
+            "scope": 3234,
             "src": "870:255:17",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3167,
+        "scope": 3235,
         "src": "316:812:17",
         "usedErrors": []
       }
@@ -1346,7 +1346,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2024-04-27T13:40:14.577Z",
+  "updatedAt": "2024-04-27T15:07:07.895Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

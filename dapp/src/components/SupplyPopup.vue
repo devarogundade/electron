@@ -1,11 +1,56 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import ArrowDownIcon from './ArrowDownIcon.vue';
+import { onMounted, ref } from 'vue';
+// import ArrowDownIcon from './ArrowDownIcon.vue';
+
+import { useStore } from 'vuex';
+import { key } from '../store';
+import { supply } from '@/scripts/electron';
+import Converter from '@/scripts/converter';
+import { getPositions } from '@/scripts/subgraph';
+import { getToken } from '@/scripts/tokens';
+
+const store = useStore(key);
 
 const isDropdown = ref(false);
 
+const progress = ref(false);
+const collateral = ref<String>('0');
+
 const emit = defineEmits(['close', 'unClose']);
 
+const props = defineProps({
+    pool: { type: Object, required: true }
+});
+
+const supplyCollateral = async () => {
+    if (progress.value || collateral.value == '') return;
+    progress.value = true;
+
+    const hash = await supply(
+        props.pool.poolId,
+        Converter.toWei(collateral.value.toString())
+    );
+
+    console.log(hash);
+
+    if (!hash) {
+
+    } else {
+        if (store.state.address) {
+            store.commit('setPositions', await getPositions(store.state.address));
+        }
+
+        emit('close');
+    }
+
+    progress.value = false;
+};
+
+const initialize = async () => { };
+
+onMounted(() => {
+    initialize();
+});
 </script>
 
 <template>
@@ -19,14 +64,16 @@ const emit = defineEmits(['close', 'unClose']);
 
                 <div class="borrow">
                     <div class="label">Amount</div>
+
                     <br>
+
                     <div class="input_wrapper">
-                        <input type="text" placeholder="0.00">
+                        <input type="number" placeholder="0.00" v-model="collateral">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
-                                    <img src="../assets/link.png" alt="">
-                                    <p>Link</p>
+                                    <img :src="getToken(props.pool.collateralId)!!.image" alt="">
+                                    <p>{{ getToken(props.pool.collateralId)!!.name }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>
@@ -35,7 +82,9 @@ const emit = defineEmits(['close', 'unClose']);
 
                     <br> <br>
 
-                    <button class="action">Supply</button>
+                    <button class="action" @click="supplyCollateral">
+                        {{ progress.valueOf() ? 'Supplying..' : 'Supply' }}
+                    </button>
                 </div>
 
                 <br> <br>

@@ -15,7 +15,7 @@ interface IDataFeed {
         address tokenId
     ) external view returns (int256, uint80);
 
-    function getUsd() external view returns (address);
+    function getUsdId() external view returns (address);
 
     function amountInUsd(
         address tokenId,
