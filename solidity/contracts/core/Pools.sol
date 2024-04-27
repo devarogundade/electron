@@ -3,7 +3,6 @@ pragma solidity ^0.8.17;
 
 import {Data} from "./libraries/Data.sol";
 import {IPools} from "./interfaces/IPools.sol";
-
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 contract Pools is IPools, Ownable2Step {
@@ -19,11 +18,13 @@ contract Pools is IPools, Ownable2Step {
 
     uint256 private _poolIdTracker = 1;
 
+    address private _electronId;
+
     constructor() Ownable2Step() {}
 
     function createPool(
         Data.Pool memory pool
-    ) external override onlyOwner returns (uint256) {
+    ) external override onlyElectron returns (uint256) {
         uint256 poolId = _poolIdTracker;
 
         _pools[poolId] = pool;
@@ -73,7 +74,7 @@ contract Pools is IPools, Ownable2Step {
         uint256 poolId,
         uint256 collateral,
         address account
-    ) external override onlyOwner {
+    ) external override onlyElectron {
         _positions[account][poolId] = Data.Position({
             poolId: poolId,
             collateral: collateral,
@@ -88,7 +89,7 @@ contract Pools is IPools, Ownable2Step {
         uint256 principal,
         uint256 collateral,
         address account
-    ) external override onlyOwner {
+    ) external override onlyElectron {
         _loans[account][poolId] = Data.Loan({
             poolId: poolId,
             state: Data.State.ACTIVE,
@@ -104,7 +105,7 @@ contract Pools is IPools, Ownable2Step {
     function closePosition(
         uint256 poolId,
         address account
-    ) external override onlyOwner {
+    ) external override onlyElectron {
         uint256 collateral = _positions[account][poolId].collateral;
 
         delete _positions[account][poolId];
@@ -115,7 +116,7 @@ contract Pools is IPools, Ownable2Step {
     function closeLoan(
         uint256 poolId,
         address account
-    ) external override onlyOwner {
+    ) external override onlyElectron {
         Data.Loan storage loan = _loans[account][poolId];
 
         if (loan.state != Data.State.ACTIVE) {
@@ -153,5 +154,14 @@ contract Pools is IPools, Ownable2Step {
     ) internal pure virtual returns (uint256) {
         if (percent == 0) return total;
         return (total * percent) / PERCENT;
+    }
+
+    function newElectronId(address electronId) external onlyOwner {
+        _electronId = electronId;
+    }
+
+    modifier onlyElectron() {
+        require(_msgSender() == _electronId, "Only Owner");
+        _;
     }
 }

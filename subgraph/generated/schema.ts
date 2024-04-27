@@ -405,8 +405,8 @@ export class NewPosition extends Entity {
     this.set("account", Value.fromBytes(value));
   }
 
-  get principal(): BigInt {
-    let value = this.get("principal");
+  get collateral(): BigInt {
+    let value = this.get("collateral");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -414,8 +414,8 @@ export class NewPosition extends Entity {
     }
   }
 
-  set principal(value: BigInt) {
-    this.set("principal", Value.fromBigInt(value));
+  set collateral(value: BigInt) {
+    this.set("collateral", Value.fromBigInt(value));
   }
 
   get startDate(): BigInt {

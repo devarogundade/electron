@@ -4,12 +4,12 @@ const tokens: Token[] = [
     {
         tokenId: '0x',
         name: 'Ethereum',
-        symbol: 'ETH',
+        symbol: 'WETH',
         image: '/images/eth.png'
     },
     {
         tokenId: '0x',
-        name: 'Link',
+        name: 'Chainlink',
         symbol: 'LINK',
         image: '/images/link.png'
     },

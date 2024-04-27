@@ -3,7 +3,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "pool",
+        "name": "pools",
         "type": "address"
       },
       {
@@ -23,6 +23,11 @@
   {
     "inputs": [],
     "name": "HasPendingLoan",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidProof",
     "type": "error"
   },
   {
@@ -179,7 +184,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "principal",
+        "name": "collateral",
         "type": "uint256"
       },
       {
@@ -332,7 +337,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "principal",
+        "name": "collateral",
         "type": "uint256"
       }
     ],
@@ -346,11 +351,6 @@
       {
         "internalType": "uint256",
         "name": "poolId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "collateral",
         "type": "uint256"
       },
       {
@@ -423,6 +423,42 @@
     "name": "withdrawTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "proofId",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "pubInputs",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct Data.Proof[]",
+        "name": "proofs",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "calculateLtv",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

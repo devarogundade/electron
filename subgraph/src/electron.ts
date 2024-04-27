@@ -18,7 +18,7 @@ import {
 
 export function handleCloseLoan(event: CloseLoanEvent): void {
   let entity = NewLoan.load(
-    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+    event.params.account.toString().concat(event.params.poolId.toString())
   );
 
   if (!entity) return;
@@ -29,7 +29,7 @@ export function handleCloseLoan(event: CloseLoanEvent): void {
   entity.save();
 
   let pool = NewPool.load(
-    event.params.poolId.toHexString()
+    event.params.poolId.toString()
   );
 
   if (!pool) return;
@@ -41,7 +41,7 @@ export function handleCloseLoan(event: CloseLoanEvent): void {
 
 export function handleClosePosition(event: ClosePositionEvent): void {
   let entity = NewPosition.load(
-    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+    event.params.account.toString().concat(event.params.poolId.toString())
   );
 
   if (!entity) return;
@@ -52,19 +52,19 @@ export function handleClosePosition(event: ClosePositionEvent): void {
   entity.save();
 
   let pool = NewPool.load(
-    event.params.poolId.toHexString()
+    event.params.poolId.toString()
   );
 
   if (!pool) return;
 
-  pool.totalSupplied = pool.totalSupplied.minus(entity.principal);
+  pool.totalSupplied = pool.totalSupplied.minus(entity.collateral);
 
   pool.save();
 }
 
 export function handleNewLoan(event: NewLoanEvent): void {
   let entity = new NewLoan(
-    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+    event.params.account.toString().concat(event.params.poolId.toString())
   );
 
   entity.poolId = event.params.poolId;
@@ -82,7 +82,7 @@ export function handleNewLoan(event: NewLoanEvent): void {
   entity.save();
 
   let pool = NewPool.load(
-    event.params.poolId.toHexString()
+    event.params.poolId.toString()
   );
 
   if (!pool) return;
@@ -94,7 +94,7 @@ export function handleNewLoan(event: NewLoanEvent): void {
 
 export function handleNewPool(event: NewPoolEvent): void {
   let entity = new NewPool(
-    event.params.poolId.toHexString()
+    event.params.poolId.toString()
   );
 
   entity.poolId = event.params.poolId;
@@ -113,12 +113,12 @@ export function handleNewPool(event: NewPoolEvent): void {
 
 export function handleNewPosition(event: NewPositionEvent): void {
   let entity = new NewPosition(
-    event.params.account.toHexString().concat(event.params.poolId.toHexString())
+    event.params.account.toString().concat(event.params.poolId.toString())
   );
 
   entity.poolId = event.params.poolId;
   entity.account = event.params.account;
-  entity.principal = event.params.principal;
+  entity.collateral = event.params.collateral;
   entity.startDate = event.params.startDate;
 
   entity.blockNumber = event.block.number;
@@ -128,12 +128,12 @@ export function handleNewPosition(event: NewPositionEvent): void {
   entity.save();
 
   let pool = NewPool.load(
-    event.params.poolId.toHexString()
+    event.params.poolId.toString()
   );
 
   if (!pool) return;
 
-  pool.totalSupplied = pool.totalSupplied.plus(event.params.principal);
+  pool.totalSupplied = pool.totalSupplied.plus(event.params.collateral);
 
   pool.save();
 }

@@ -5,15 +5,17 @@ import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { key } from '../store';
 import { borrow } from '@/scripts/electron';
-import type { Position, Proof } from '@/types';
+import type { Position, Proof, Verifier } from '@/types';
 import { getLoans, getPosition } from '@/scripts/subgraph';
 import Converter from '@/scripts/converter';
 import { getToken } from '@/scripts/tokens';
+import { getVerifiers } from '@/scripts/verifiers';
 
 const store = useStore(key);
 
 const isDropdown = ref(false);
 
+const estimatedPrincipal = ref('0');
 const progress = ref(false);
 
 const emit = defineEmits(['close', 'unClose']);
@@ -22,11 +24,11 @@ const props = defineProps({
     pool: { type: Object, required: true }
 });
 
+const proofs: Proof[] = [];
+
 const borrowLoan = async () => {
     if (progress.value) return;
     progress.value = true;
-
-    const proofs: Proof[] = [];
 
     const hash = await borrow(
         props.pool.poolId,
@@ -49,6 +51,25 @@ const borrowLoan = async () => {
 };
 
 const position = ref<Position | null>(null);
+
+const createProof = async (verifier: Verifier) => {
+
+
+
+    const proof: Proof = {
+        proofId: verifier.proofId,
+        pubInputs: [],
+        data: '0x'
+    };
+
+    proofs.push(proof);
+
+    calculateLtv();
+};
+
+const calculateLtv = async () => {
+    estimatedPrincipal.value = '0';
+};
 
 const initialize = async () => {
     if (store.state.address) {
@@ -110,41 +131,17 @@ onMounted(() => {
                             </thead>
 
                             <tbody>
-                                <tr>
+                                <tr v-for="verifier, index in getVerifiers()" :key="index">
                                     <td>
-                                        <p>Proof that you have some funds in a different wallet on scroll.</p>
-                                    </td>
-                                    <td>
-                                        <p>3%</p>
-                                    </td>
-                                    <td>
-                                        <button>Proof</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <p>Proof that you have an active twitter account.</p>
-                                    </td>
-                                    <td>
-                                        <p>2%</p>
-                                    </td>
-                                    <td>
-                                        <button>Proof</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <p>Proof that you are a member of xxxxxxx club.</p>
+                                        <p>{{ verifier.description }}</p>
                                     </td>
                                     <td>
                                         <p>
-                                            4%
+                                            + {{ verifier.points }}%
                                         </p>
                                     </td>
                                     <td>
-                                        <button>Proof</button>
+                                        <button @click="createProof(verifier)">Proof</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -158,8 +155,7 @@ onMounted(() => {
                     <br>
 
                     <div class="input_wrapper">
-                        <!-- Calculate with preview -->
-                        <input type="number" placeholder="0.00" disabled :value="'100'">
+                        <input type="number" placeholder="0.00" disabled :value="Converter.fromWei(estimatedPrincipal)">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">

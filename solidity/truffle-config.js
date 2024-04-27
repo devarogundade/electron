@@ -12,7 +12,7 @@ module.exports = {
 
   networks: {
     scrollTestnet: {
-      provider: () => new HDWalletProvider(MNEMONIC, 'https://scroll-sepolia.blockpi.network/v1/rpc/public'),
+      provider: () => new HDWalletProvider(MNEMONIC, 'https://scroll-sepolia.chainstacklabs.com'),
       network_id: 534351,
       confirmations: 2,
       timeoutBlocks: 9999999,

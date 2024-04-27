@@ -15,15 +15,15 @@
     "absolutePath": "project:/contracts/core/libraries/Data.sol",
     "exportedSymbols": {
       "Data": [
-        3141
+        3164
       ]
     },
-    "id": 3142,
+    "id": 3165,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3091,
+        "id": 3114,
         "literals": [
           "solidity",
           "^",
@@ -40,9 +40,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 3141,
+        "id": 3164,
         "linearizedBaseContracts": [
-          3141
+          3164
         ],
         "name": "Data",
         "nameLocation": "69:4:16",
@@ -50,16 +50,16 @@
         "nodes": [
           {
             "canonicalName": "Data.Verifier",
-            "id": 3096,
+            "id": 3119,
             "members": [
               {
                 "constant": false,
-                "id": 3093,
+                "id": 3116,
                 "mutability": "mutable",
                 "name": "verifierId",
                 "nameLocation": "116:10:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3096,
+                "scope": 3119,
                 "src": "108:18:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -68,7 +68,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 3092,
+                  "id": 3115,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "108:7:16",
@@ -82,12 +82,12 @@
               },
               {
                 "constant": false,
-                "id": 3095,
+                "id": 3118,
                 "mutability": "mutable",
                 "name": "points",
                 "nameLocation": "143:6:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3096,
+                "scope": 3119,
                 "src": "137:12:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -96,7 +96,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3094,
+                  "id": 3117,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "137:5:16",
@@ -111,22 +111,22 @@
             "name": "Verifier",
             "nameLocation": "88:8:16",
             "nodeType": "StructDefinition",
-            "scope": 3141,
+            "scope": 3164,
             "src": "81:76:16",
             "visibility": "public"
           },
           {
             "canonicalName": "Data.Proof",
-            "id": 3104,
+            "id": 3127,
             "members": [
               {
                 "constant": false,
-                "id": 3098,
+                "id": 3121,
                 "mutability": "mutable",
                 "name": "proofId",
                 "nameLocation": "197:7:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3104,
+                "scope": 3127,
                 "src": "189:15:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -135,7 +135,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 3097,
+                  "id": 3120,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "189:7:16",
@@ -148,12 +148,12 @@
               },
               {
                 "constant": false,
-                "id": 3101,
+                "id": 3124,
                 "mutability": "mutable",
                 "name": "pubInputs",
                 "nameLocation": "225:9:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3104,
+                "scope": 3127,
                 "src": "215:19:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -163,7 +163,7 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 3099,
+                    "id": 3122,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "215:7:16",
@@ -172,7 +172,7 @@
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 3100,
+                  "id": 3123,
                   "nodeType": "ArrayTypeName",
                   "src": "215:9:16",
                   "typeDescriptions": {
@@ -184,12 +184,12 @@
               },
               {
                 "constant": false,
-                "id": 3103,
+                "id": 3126,
                 "mutability": "mutable",
                 "name": "data",
                 "nameLocation": "251:4:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3104,
+                "scope": 3127,
                 "src": "245:10:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -198,7 +198,7 @@
                   "typeString": "bytes"
                 },
                 "typeName": {
-                  "id": 3102,
+                  "id": 3125,
                   "name": "bytes",
                   "nodeType": "ElementaryTypeName",
                   "src": "245:5:16",
@@ -213,22 +213,22 @@
             "name": "Proof",
             "nameLocation": "172:5:16",
             "nodeType": "StructDefinition",
-            "scope": 3141,
+            "scope": 3164,
             "src": "165:98:16",
             "visibility": "public"
           },
           {
             "canonicalName": "Data.Position",
-            "id": 3111,
+            "id": 3134,
             "members": [
               {
                 "constant": false,
-                "id": 3106,
+                "id": 3129,
                 "mutability": "mutable",
                 "name": "poolId",
                 "nameLocation": "306:6:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3111,
+                "scope": 3134,
                 "src": "298:14:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -237,7 +237,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3105,
+                  "id": 3128,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "298:7:16",
@@ -250,12 +250,12 @@
               },
               {
                 "constant": false,
-                "id": 3108,
+                "id": 3131,
                 "mutability": "mutable",
                 "name": "collateral",
                 "nameLocation": "331:10:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3111,
+                "scope": 3134,
                 "src": "323:18:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -264,7 +264,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3107,
+                  "id": 3130,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "323:7:16",
@@ -277,12 +277,12 @@
               },
               {
                 "constant": false,
-                "id": 3110,
+                "id": 3133,
                 "mutability": "mutable",
                 "name": "startDate",
                 "nameLocation": "360:9:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3111,
+                "scope": 3134,
                 "src": "352:17:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -291,7 +291,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3109,
+                  "id": 3132,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "352:7:16",
@@ -306,22 +306,22 @@
             "name": "Position",
             "nameLocation": "278:8:16",
             "nodeType": "StructDefinition",
-            "scope": 3141,
+            "scope": 3164,
             "src": "271:106:16",
             "visibility": "public"
           },
           {
             "canonicalName": "Data.Pool",
-            "id": 3122,
+            "id": 3145,
             "members": [
               {
                 "constant": false,
-                "id": 3113,
+                "id": 3136,
                 "mutability": "mutable",
                 "name": "principalId",
                 "nameLocation": "416:11:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3122,
+                "scope": 3145,
                 "src": "408:19:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -330,7 +330,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 3112,
+                  "id": 3135,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "408:7:16",
@@ -344,12 +344,12 @@
               },
               {
                 "constant": false,
-                "id": 3115,
+                "id": 3138,
                 "mutability": "mutable",
                 "name": "collateralId",
                 "nameLocation": "446:12:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3122,
+                "scope": 3145,
                 "src": "438:20:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -358,7 +358,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 3114,
+                  "id": 3137,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "438:7:16",
@@ -372,12 +372,12 @@
               },
               {
                 "constant": false,
-                "id": 3117,
+                "id": 3140,
                 "mutability": "mutable",
                 "name": "totalSupplied",
                 "nameLocation": "477:13:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3122,
+                "scope": 3145,
                 "src": "469:21:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -386,7 +386,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3116,
+                  "id": 3139,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "469:7:16",
@@ -399,12 +399,12 @@
               },
               {
                 "constant": false,
-                "id": 3119,
+                "id": 3142,
                 "mutability": "mutable",
                 "name": "totalBorrowed",
                 "nameLocation": "509:13:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3122,
+                "scope": 3145,
                 "src": "501:21:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -413,7 +413,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3118,
+                  "id": 3141,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "501:7:16",
@@ -426,12 +426,12 @@
               },
               {
                 "constant": false,
-                "id": 3121,
+                "id": 3144,
                 "mutability": "mutable",
                 "name": "interest",
                 "nameLocation": "541:8:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3122,
+                "scope": 3145,
                 "src": "533:16:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -440,7 +440,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3120,
+                  "id": 3143,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "533:7:16",
@@ -455,30 +455,30 @@
             "name": "Pool",
             "nameLocation": "392:4:16",
             "nodeType": "StructDefinition",
-            "scope": 3141,
+            "scope": 3164,
             "src": "385:172:16",
             "visibility": "public"
           },
           {
             "canonicalName": "Data.State",
-            "id": 3126,
+            "id": 3149,
             "members": [
               {
-                "id": 3123,
+                "id": 3146,
                 "name": "ACTIVE",
                 "nameLocation": "587:6:16",
                 "nodeType": "EnumValue",
                 "src": "587:6:16"
               },
               {
-                "id": 3124,
+                "id": 3147,
                 "name": "REPAID",
                 "nameLocation": "604:6:16",
                 "nodeType": "EnumValue",
                 "src": "604:6:16"
               },
               {
-                "id": 3125,
+                "id": 3148,
                 "name": "DEFAULTED",
                 "nameLocation": "621:9:16",
                 "nodeType": "EnumValue",
@@ -492,16 +492,16 @@
           },
           {
             "canonicalName": "Data.Loan",
-            "id": 3140,
+            "id": 3163,
             "members": [
               {
                 "constant": false,
-                "id": 3128,
+                "id": 3151,
                 "mutability": "mutable",
                 "name": "poolId",
                 "nameLocation": "676:6:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3140,
+                "scope": 3163,
                 "src": "668:14:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -510,7 +510,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3127,
+                  "id": 3150,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "668:7:16",
@@ -523,36 +523,36 @@
               },
               {
                 "constant": false,
-                "id": 3131,
+                "id": 3154,
                 "mutability": "mutable",
                 "name": "state",
                 "nameLocation": "699:5:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3140,
+                "scope": 3163,
                 "src": "693:11:16",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_State_$3126",
+                  "typeIdentifier": "t_enum$_State_$3149",
                   "typeString": "enum Data.State"
                 },
                 "typeName": {
-                  "id": 3130,
+                  "id": 3153,
                   "nodeType": "UserDefinedTypeName",
                   "pathNode": {
-                    "id": 3129,
+                    "id": 3152,
                     "name": "State",
                     "nameLocations": [
                       "693:5:16"
                     ],
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 3126,
+                    "referencedDeclaration": 3149,
                     "src": "693:5:16"
                   },
-                  "referencedDeclaration": 3126,
+                  "referencedDeclaration": 3149,
                   "src": "693:5:16",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_State_$3126",
+                    "typeIdentifier": "t_enum$_State_$3149",
                     "typeString": "enum Data.State"
                   }
                 },
@@ -560,12 +560,12 @@
               },
               {
                 "constant": false,
-                "id": 3133,
+                "id": 3156,
                 "mutability": "mutable",
                 "name": "principal",
                 "nameLocation": "723:9:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3140,
+                "scope": 3163,
                 "src": "715:17:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -574,7 +574,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3132,
+                  "id": 3155,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "715:7:16",
@@ -587,12 +587,12 @@
               },
               {
                 "constant": false,
-                "id": 3135,
+                "id": 3158,
                 "mutability": "mutable",
                 "name": "collateral",
                 "nameLocation": "751:10:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3140,
+                "scope": 3163,
                 "src": "743:18:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -601,7 +601,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3134,
+                  "id": 3157,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "743:7:16",
@@ -614,12 +614,12 @@
               },
               {
                 "constant": false,
-                "id": 3137,
+                "id": 3160,
                 "mutability": "mutable",
                 "name": "startDate",
                 "nameLocation": "780:9:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3140,
+                "scope": 3163,
                 "src": "772:17:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -628,7 +628,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3136,
+                  "id": 3159,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "772:7:16",
@@ -641,12 +641,12 @@
               },
               {
                 "constant": false,
-                "id": 3139,
+                "id": 3162,
                 "mutability": "mutable",
                 "name": "repaidDate",
                 "nameLocation": "808:10:16",
                 "nodeType": "VariableDeclaration",
-                "scope": 3140,
+                "scope": 3163,
                 "src": "800:18:16",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -655,7 +655,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3138,
+                  "id": 3161,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "800:7:16",
@@ -670,12 +670,12 @@
             "name": "Loan",
             "nameLocation": "652:4:16",
             "nodeType": "StructDefinition",
-            "scope": 3141,
+            "scope": 3164,
             "src": "645:181:16",
             "visibility": "public"
           }
         ],
-        "scope": 3142,
+        "scope": 3165,
         "src": "61:768:16",
         "usedErrors": []
       }
@@ -688,7 +688,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2024-04-27T15:07:07.892Z",
+  "updatedAt": "2024-04-27T16:43:38.089Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -1,7 +1,6 @@
 import { config } from './config';
 import { abi } from '../contracts/electron_abi';
-
-import { waitForTransactionReceipt, writeContract } from '@wagmi/core';
+import { waitForTransactionReceipt, writeContract, readContract } from '@wagmi/core';
 import type { Proof } from '@/types';
 
 const electronId: `0x${string}` = '0x392CedECa0e6AA0fe45cc70d5d6BC4844C7E4121';
@@ -75,6 +74,21 @@ export async function repay(poolId: number) {
         const receipt = await waitForTransactionReceipt(config, { hash: result });
 
         return receipt.transactionHash;
+    } catch (error) {
+        console.log(error);
+
+        return null;
+    }
+}
+
+export async function calculateLtv(proofs: Proof[]) {
+    try {
+        return await readContract(config, {
+            abi: abi,
+            address: electronId,
+            functionName: 'calculateLtv',
+            args: [proofs]
+        });
     } catch (error) {
         console.log(error);
 

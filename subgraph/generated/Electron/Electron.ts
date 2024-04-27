@@ -159,7 +159,7 @@ export class NewPosition__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get principal(): BigInt {
+  get collateral(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 
@@ -212,6 +212,20 @@ export class OwnershipTransferred__Params {
   }
 }
 
+export class Electron__calculateLtvInputProofsStruct extends ethereum.Tuple {
+  get proofId(): Bytes {
+    return this[0].toBytes();
+  }
+
+  get pubInputs(): Array<Bytes> {
+    return this[1].toBytesArray();
+  }
+
+  get data(): Bytes {
+    return this[2].toBytes();
+  }
+}
+
 export class Electron extends ethereum.SmartContract {
   static bind(address: Address): Electron {
     return new Electron("Electron", address);
@@ -246,6 +260,31 @@ export class Electron extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
+
+  calculateLtv(proofs: Array<Electron__calculateLtvInputProofsStruct>): BigInt {
+    let result = super.call(
+      "calculateLtv",
+      "calculateLtv((bytes32,bytes32[],bytes)[]):(uint256)",
+      [ethereum.Value.fromTupleArray(proofs)],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateLtv(
+    proofs: Array<Electron__calculateLtvInputProofsStruct>,
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateLtv",
+      "calculateLtv((bytes32,bytes32[],bytes)[]):(uint256)",
+      [ethereum.Value.fromTupleArray(proofs)],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
 }
 
 export class ConstructorCall extends ethereum.Call {
@@ -265,7 +304,7 @@ export class ConstructorCall__Inputs {
     this._call = call;
   }
 
-  get pool(): Address {
+  get pools(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
@@ -443,7 +482,7 @@ export class SupplyCall__Inputs {
     return this._call.inputValues[0].value.toBigInt();
   }
 
-  get principal(): BigInt {
+  get collateral(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 }
@@ -477,12 +516,8 @@ export class BorrowCall__Inputs {
     return this._call.inputValues[0].value.toBigInt();
   }
 
-  get collateral(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
   get proofs(): Array<BorrowCallProofsStruct> {
-    return this._call.inputValues[2].value.toTupleArray<BorrowCallProofsStruct>();
+    return this._call.inputValues[1].value.toTupleArray<BorrowCallProofsStruct>();
   }
 }
 

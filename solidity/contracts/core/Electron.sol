@@ -8,14 +8,14 @@ import {IElectron} from "./interfaces/IElectron.sol";
 import {IVerifier} from "../zk/interfaces/IVerifier.sol";
 import {IDataFeed} from "../chainlink/interfaces/IDataFeed.sol";
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 /// @title Electron
 /// @author @devarogundade
 contract Electron is IElectron, Ownable2Step {
-    using SafeERC20 for ERC20;
+    using SafeERC20 for IERC20;
 
     uint8 private constant DEFAULT_LTV = 70;
 
@@ -54,7 +54,7 @@ contract Electron is IElectron, Ownable2Step {
         Data.Pool memory pool = _pools.getPool(poolId);
 
         // Extract collateral token from account
-        ERC20(pool.collateralId).safeTransferFrom(
+        IERC20(pool.collateralId).safeTransferFrom(
             account,
             address(this),
             collateral
@@ -115,7 +115,7 @@ contract Electron is IElectron, Ownable2Step {
         );
 
         // Send principal token to account
-        ERC20(pool.principalId).safeTransfer(account, principal);
+        IERC20(pool.principalId).safeTransfer(account, principal);
 
         // Record account loan
         _pools.createLoan(poolId, principal, position.collateral, account);
@@ -147,7 +147,7 @@ contract Electron is IElectron, Ownable2Step {
         Data.Pool memory pool = _pools.getPool(poolId);
 
         // Send principal token to account
-        ERC20(pool.collateralId).safeTransfer(account, position.collateral);
+        IERC20(pool.collateralId).safeTransfer(account, position.collateral);
 
         // Close account position in the liquidity pool
         _pools.closePosition(poolId, account);
@@ -176,7 +176,7 @@ contract Electron is IElectron, Ownable2Step {
         uint256 principalIn = (loan.principal + accruedInsterest);
 
         // Extract principal token from account
-        ERC20(pool.principalId).safeTransferFrom(
+        IERC20(pool.principalId).safeTransferFrom(
             account,
             address(this),
             principalIn
@@ -196,11 +196,11 @@ contract Electron is IElectron, Ownable2Step {
         address account = _msgSender();
 
         // Transfer tokens to account
-        ERC20(tokenId).safeTransfer(account, amount);
+        IERC20(tokenId).safeTransfer(account, amount);
     }
 
+    /// @notice Emergency token withdraw
     function calculateLtv(
-        uint256 poolId,
         Data.Proof[] memory proofs
     ) external view override returns (uint256) {
         uint8 totalLtv = DEFAULT_LTV;

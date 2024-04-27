@@ -1,5 +1,7 @@
 export type Verifier = {
-    verifierId: `0x${string}`;
+    proofId: `0x${string}`;
+    description: string;
+    tag: string;
     points: number;
 };
 

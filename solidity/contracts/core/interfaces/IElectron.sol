@@ -50,7 +50,6 @@ interface IElectron {
     function repay(uint256 poolId) external;
 
     function calculateLtv(
-        uint256 poolId,
         Data.Proof[] memory proofs
     ) external view returns (uint256);
 }
