@@ -200,6 +200,14 @@ onMounted(() => {
       </div>
     </div>
 
+    <div class="faucet_container" id="faucet">
+      <div class="app_width">
+        <div class="market_title">
+          Faucet
+        </div>
+      </div>
+    </div>
+
     <br> <br> <br> <br>
     <br> <br> <br> <br>
 
@@ -404,4 +412,11 @@ td:nth-child(4) {
 td:nth-child(5) {
   width: 180px;
 }
+
+.faucet_container {
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+}
 </style>
+<!--  -->

@@ -198,7 +198,7 @@ onMounted(() => {
     overflow-y: auto;
     overflow-x: hidden;
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 }
 
