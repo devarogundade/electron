@@ -3,7 +3,7 @@ import type { Token } from '@/types';
 const tokens: Token[] = [
     {
         tokenId: '0x123C02cAabfd1c16f50Ea41Ca3AeB87e496340D8',
-        name: 'Ethereum',
+        name: 'Wrapped ETH',
         symbol: 'WETH',
         image: '/images/eth.png'
     },

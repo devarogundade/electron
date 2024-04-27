@@ -103,7 +103,7 @@ onMounted(() => {
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
                                     <img :src="getToken(props.pool.collateralId)!!.image" alt="">
-                                    <p>{{ getToken(props.pool.collateralId)!!.name }}</p>
+                                    <p>{{ getToken(props.pool.collateralId)!!.symbol }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>
@@ -160,7 +160,7 @@ onMounted(() => {
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
                                     <img :src="getToken(props.pool.principalId)!!.image" alt="">
-                                    <p>{{ getToken(props.pool.principalId)!!.name }}</p>
+                                    <p>{{ getToken(props.pool.principalId)!!.symbol }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>

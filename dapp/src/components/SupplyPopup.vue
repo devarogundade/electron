@@ -73,7 +73,7 @@ onMounted(() => {
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
                                     <img :src="getToken(props.pool.collateralId)!!.image" alt="">
-                                    <p>{{ getToken(props.pool.collateralId)!!.name }}</p>
+                                    <p>{{ getToken(props.pool.collateralId)!!.symbol }}</p>
                                 </div>
                                 <!-- <ArrowDownIcon /> -->
                             </div>

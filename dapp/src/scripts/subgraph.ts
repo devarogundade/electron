@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Loan, Pool, Position } from "@/types";
 
-const endPoint = 'https://api.thegraph.com/subgraphs/name/devarogundade/electron';
+const endPoint = 'https://api.studio.thegraph.com/query/73053/electron/version/latest';
 
 export async function getPools(): Promise<Pool[]> {
     try {
@@ -10,10 +10,20 @@ export async function getPools(): Promise<Pool[]> {
                 query: `{
                     newPools {
                         id
+                        poolId
+                        interest
+                        principalId
+                        collateralId
+                        totalSupplied
+                        totalBorrowed
+                        blockTimestamp
                     }
                 }`
             }
         );
+
+        console.log(response);
+
 
         return response.data.data.newPools;
     } catch (error) {
@@ -30,6 +40,12 @@ export async function getPool(poolId: number): Promise<Pool | null> {
                 query: `{
                     newPool(id: ${poolId}) {
                         id
+                        poolId
+                        principalId
+                        collateralId
+                        totalSupplied
+                        totalSupplied
+                        blockTimestamp
                     }
                 }`
             }
@@ -48,6 +64,13 @@ export async function getLoans(account: `0x${string}`): Promise<Loan[]> {
                 query: `{
                     newLoans(where: {account: "${account}"}) {
                         id
+                        poolId
+                        account
+                        principal
+                        state
+                        collateral
+                        startDate
+                        repaidDate
                     }
                 }`
             }
@@ -68,6 +91,14 @@ export async function getLoan(poolId: number, account: `0x${string}`): Promise<L
                 query: `{
                     newLoan(id: ${account + poolId.toString()}) {
                         id
+                        poolId
+                        account
+                        principal
+                        state
+                        collateral
+                        startDate
+                        repaidDate
+                        blockTimestamp
                     }
                 }`
             }

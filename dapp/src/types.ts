@@ -12,6 +12,7 @@ export type Proof = {
 };
 
 export type Pool = {
+    poolId: number;
     principalId: `0x${string}`;
     collateralId: `0x${string}`;
     totalSupplied: string;

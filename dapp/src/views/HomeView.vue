@@ -61,13 +61,23 @@ onMounted(() => {
     <div class="header_container">
       <div class="app_width">
         <header>
-          <h3 class="logo">Electron</h3>
-          <button class="connect" @click="modal.open()">
-            {{ store.state.address ?
-              `${Converter.fineHash(store.state.address, 4)}`
-              : 'Wallet Connect'
-            }}
-          </button>
+          <a href="#">
+            <h3 class="logo">Electron</h3>
+          </a>
+          <div style="display: flex; align-items: center; gap: 40px;">
+            <a style="font-weight: 600; color: #000;" href="https://dorahacks.io/hackathon/v0rtex-01/buidl"
+              target="_blank">V0RTEx 01</a>
+            <a style="font-weight: 600; color: #000;" href="#supply">Supply</a>
+            <a style="font-weight: 600; color: #000;" href="#borrow">Borrow</a>
+            <a style="font-weight: 600; color: #000;" href="#faucet">Faucet</a>
+
+            <button class="connect" @click="modal.open()">
+              {{ store.state.address ?
+                `${Converter.fineHash(store.state.address, 4)}`
+                : 'Wallet Connect'
+              }}
+            </button>
+          </div>
         </header>
       </div>
     </div>
@@ -80,18 +90,19 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="market_container">
+    <div class="market_container" id="supply">
       <div class="app_width">
-        <p class="market_title">Supply / Withdraw</p>
+        <p class="market_title">Lock or withdraw collaterals.</p>
         <div class="market">
           <table>
             <thead>
               <tr>
-                <td>Asset</td>
-                <td>Liquidity</td>
-                <td>Available</td>
-                <td>Borrowed</td>
-                <td>Interest</td>
+                <td>Collateral</td>
+                <td>Pair</td>
+                <td>Supplied</td>
+                <td>Backing</td>
+                <td>Supplied (You)</td>
+                <td></td>
                 <td></td>
               </tr>
             </thead>
@@ -100,21 +111,24 @@ onMounted(() => {
               <tr v-for="pool, index in store.state.pools" :key="index">
                 <td>
                   <div class="token">
-                    <img src="../assets/eth.png" alt="">
-                    <p>{{ getToken(pool.collateral)!!.name }}</p>
+                    <img :src="getToken(pool.collateralId)!!.image" alt="">
+                    <p>{{ getToken(pool.collateralId)!!.name }}</p>
                   </div>
                 </td>
                 <td>
-                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateral)!!.symbol }}</p>
+                  <div class="pair">
+                    <img :src="getToken(pool.principalId)!!.image" alt="">
+                    <img :src="getToken(pool.collateralId)!!.image" alt="">
+                  </div>
                 </td>
                 <td>
-                  <p>0.00 {{ getToken(pool.collateral)!!.symbol }}</p>
+                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>${{ getToken(pool.principalId)!!.name }}</p>
+                  <p>{{ pool.totalBorrowed }} {{ getToken(pool.principalId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ pool.interest }}%</p>
+                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
                   <button @click="supplyPop = pool">Supply</button>
@@ -129,18 +143,19 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="market_container market_container_borrow">
+    <div class="market_container market_container_borrow" id="borrow">
       <div class="app_width">
-        <p class="market_title">Borrow / Repay</p>
+        <p class="market_title">Borrow or repay loans.</p>
         <div class="market">
           <table>
             <thead>
               <tr>
-                <td>Asset</td>
-                <td>Liquidity</td>
-                <td>Available</td>
+                <td>Principal</td>
+                <td>Pair</td>
                 <td>Borrowed</td>
-                <td>Interest</td>
+                <td>Backed by</td>
+                <td>Borrowed (You)</td>
+                <td></td>
                 <td></td>
               </tr>
             </thead>
@@ -149,21 +164,28 @@ onMounted(() => {
               <tr v-for="pool, index in store.state.pools" :key="index">
                 <td>
                   <div class="token">
-                    <img src="../assets/eth.png" alt="">
-                    <p>{{ getToken(pool.collateral)!!.name }}</p>
+                    <img :src="getToken(pool.principalId)!!.image" alt="">
+                    <p>{{ getToken(pool.principalId)!!.name }}</p>
                   </div>
                 </td>
                 <td>
-                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateral)!!.symbol }}</p>
+                  <div class="pair">
+                    <img :src="getToken(pool.collateralId)!!.image" alt="">
+                    <img :src="getToken(pool.principalId)!!.image" alt="">
+                  </div>
                 </td>
                 <td>
-                  <p>0.00 {{ getToken(pool.collateral)!!.symbol }}</p>
+                  <p>{{ pool.totalBorrowed }} {{ getToken(pool.principalId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>${{ getToken(pool.principalId)!!.name }}</p>
+                  <p>{{ pool.totalSupplied }} {{ getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ pool.interest }}%</p>
+                  <p>{{ pool.totalBorrowed }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p style="font-size: 12px; margin-top: 2px; color: #d20808; font-weight: 400;">
+                    Interest:
+                    {{ Converter.toMoney(pool.interest / 1_000_000) }}%
+                  </p>
                 </td>
                 <td>
                   <button @click="borrowPop = pool">Borrow</button>
@@ -179,11 +201,12 @@ onMounted(() => {
     </div>
 
     <br> <br> <br> <br>
+    <br> <br> <br> <br>
 
     <BorrowPopup v-if="borrowPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" borrowPop = null" />
-    <SupplyPopup v-if="supplyPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" supplyPop = null" />
-    <WithdrawPopup v-if="withdrawPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" withdrawPop = null" />
-    <RepayPopup v-if="repayPop?.valueOf()" :pool="borrowPop?.valueOf()" v-on:close=" repayPop = null" />
+    <SupplyPopup v-if="supplyPop?.valueOf()" :pool="supplyPop?.valueOf()" v-on:close=" supplyPop = null" />
+    <WithdrawPopup v-if="withdrawPop?.valueOf()" :pool="withdrawPop?.valueOf()" v-on:close=" withdrawPop = null" />
+    <RepayPopup v-if="repayPop?.valueOf()" :pool="repayPop?.valueOf()" v-on:close=" repayPop = null" />
   </main>
 </template>
 
@@ -192,7 +215,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   position: sticky;
-  height: 100px;
+  height: 70px;
   top: 0;
 }
 
@@ -204,24 +227,25 @@ header {
   border-bottom: 1px solid #714cc8;
   border-left: 1px solid #714cc8;
   border-right: 1px solid #714cc8;
-  border-radius: 0 0 30px 30px;
+  border-radius: 0 0 16px 16px;
   overflow: hidden;
-  padding: 0 30px;
+  padding: 0 20px;
   backdrop-filter: blur(16px);
 }
 
 .logo {
-  font-size: 45px;
+  font-size: 35px;
   user-select: none;
   font-family: "Jersey 15", sans-serif;
+  color: #000;
 }
 
 .connect {
-  height: 50px;
-  width: 220px;
+  height: 40px;
+  width: 180px;
   border-radius: 10px;
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   color: #FFF;
   background-color: #1b1b4d;
@@ -229,17 +253,17 @@ header {
 }
 
 .hero_container {
-  margin-top: -100px;
+  margin-top: -70px;
   display: flex;
   justify-content: center;
 }
 
 .hero_container .app_width {
-  width: 1400px;
-  padding-top: 220px;
-  padding-bottom: 160px;
+  width: 1180px;
+  padding-top: 160px;
+  padding-bottom: 80px;
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
-  border-radius: 0 0 100px 100px;
+  border-radius: 0 0 20px 20px;
 }
 
 .hero {
@@ -269,12 +293,27 @@ header {
   overflow: hidden;
 }
 
+.pair {
+  display: flex;
+  align-items: center;
+}
+
+.pair img {
+  width: 24px;
+  height: 24px;
+  border-radius: 15px;
+}
+
+.pair img:last-child {
+  margin-left: -6px;
+}
+
 .market_container table {
   width: 100%;
 }
 
 .market_container thead {
-  height: 70px;
+  height: 80px;
 }
 
 .market thead td {
@@ -293,6 +332,7 @@ header {
   font-size: 16px;
   font-weight: 500;
   padding: 0 30px;
+  height: 70px;
 }
 
 .token {
@@ -343,5 +383,25 @@ td:nth-child(7) {
 
 table {
   padding-right: 15px;
+}
+
+td:first-child {
+  width: 200px;
+}
+
+td:nth-child(2) {
+  width: 60px;
+}
+
+td:nth-child(3) {
+  width: 180px;
+}
+
+td:nth-child(4) {
+  width: 180px;
+}
+
+td:nth-child(5) {
+  width: 180px;
 }
 </style>

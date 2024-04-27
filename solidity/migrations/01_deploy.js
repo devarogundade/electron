@@ -4,6 +4,7 @@ const Verifier = artifacts.require('Verifier');
 const Electron = artifacts.require('Electron');
 
 module.exports = async function (deployer, network, accounts) {
+    return;
     await deployer.deploy(DataFeed, { from: accounts[1] });
     await deployer.deploy(Verifier, { from: accounts[1] });
     await deployer.deploy(Pools, { from: accounts[1] });

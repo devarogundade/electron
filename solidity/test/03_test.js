@@ -6,38 +6,38 @@ const LINK = artifacts.require('LINK');
 const DataFeed = artifacts.require('DataFeed');
 
 contract('DataFeed', async accounts => {
-    it('Set USDT feed address', async () => {
-        const dataFeed = await DataFeed.deployed();
+    // it('Set USDT feed address', async () => {
+    //     const dataFeed = await DataFeed.deployed();
 
-        const trx = await dataFeed.addDataFeed(
-            USDT.address, "0xb84a700192A78103B2dA2530D99718A2a954cE86",
-            { from: accounts[1] }
-        );
+    //     const trx = await dataFeed.addDataFeed(
+    //         USDT.address, "0xb84a700192A78103B2dA2530D99718A2a954cE86",
+    //         { from: accounts[1] }
+    //     );
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
-    it('Set USDC feed address', async () => {
-        const dataFeed = await DataFeed.deployed();
+    // it('Set USDC feed address', async () => {
+    //     const dataFeed = await DataFeed.deployed();
 
-        const trx = await dataFeed.addDataFeed(
-            USDC.address, "0xFadA8b0737D4A3AE7118918B7E69E689034c0127",
-            { from: accounts[1] }
-        );
+    //     const trx = await dataFeed.addDataFeed(
+    //         USDC.address, "0xFadA8b0737D4A3AE7118918B7E69E689034c0127",
+    //         { from: accounts[1] }
+    //     );
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
-    it('Set WETH feed address', async () => {
-        const dataFeed = await DataFeed.deployed();
+    // it('Set WETH feed address', async () => {
+    //     const dataFeed = await DataFeed.deployed();
 
-        const trx = await dataFeed.addDataFeed(
-            WETH.address, "0x59F1ec1f10bD7eD9B938431086bC1D9e233ECf41",
-            { from: accounts[1] }
-        );
+    //     const trx = await dataFeed.addDataFeed(
+    //         WETH.address, "0x59F1ec1f10bD7eD9B938431086bC1D9e233ECf41",
+    //         { from: accounts[1] }
+    //     );
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
     it('Set LINK feed address', async () => {
         const dataFeed = await DataFeed.deployed();
