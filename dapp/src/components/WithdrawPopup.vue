@@ -4,7 +4,7 @@ import { getToken } from '@/scripts/tokens';
 import type { Position } from '@/types';
 import { onMounted, ref } from 'vue';
 // import ArrowDownIcon from './ArrowDownIcon.vue';
-
+// @ts-ignore
 import { useStore } from 'vuex';
 import { key } from '../store';
 import { withdraw } from '@/scripts/electron';
@@ -82,7 +82,7 @@ onMounted(() => {
 
                     <div class="input_wrapper">
                         <input type="number" placeholder="0.00" disabled
-                            :value="Converter.fromWei(position?.valueOf()?.collateral || '0')">
+                            :value="Converter.fromWei((position?.valueOf() as Position)?.collateral || '0')">
                         <div class="token_drowndown" @click="isDropdown = !isDropdown.valueOf()">
                             <div class="token">
                                 <div class="" style="display: flex; align-items: center; gap: 10px;">
@@ -98,7 +98,7 @@ onMounted(() => {
 
                     <div class="label">
                         Available:
-                        {{ Converter.fromWei(position?.valueOf()?.collateral || '0') }}
+                        {{ Converter.fromWei((position?.valueOf() as Position)?.collateral || '0') }}
                         {{ getToken(props.pool.collateralId)!!.symbol }}
                     </div>
 

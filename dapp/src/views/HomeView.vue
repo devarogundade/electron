@@ -10,7 +10,7 @@ import { config, projectId, chains } from '../scripts/config';
 import { createWeb3Modal } from '@web3modal/wagmi/vue';
 import { useWeb3Modal } from '@web3modal/wagmi/vue';
 import { watchAccount } from '@wagmi/core';
-
+// @ts-ignore
 import { useStore } from 'vuex';
 import { key } from '../store';
 import Converter from '@/scripts/converter';

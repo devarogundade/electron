@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 // import ArrowDownIcon from './ArrowDownIcon.vue';
-
+// @ts-ignore
 import { useStore } from 'vuex';
 import { key } from '../store';
 import { electronId, supply } from '@/scripts/electron';

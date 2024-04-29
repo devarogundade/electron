@@ -32,7 +32,7 @@ export function handleCloseLoan(event: CloseLoanEvent): void {
     event.params.poolId.toString()
   );
 
-  if (!pool) return;
+  if (!pool || pool.totalBorrowed < entity.principal) return;
 
   pool.totalBorrowed = pool.totalBorrowed.minus(entity.principal);
 
@@ -55,7 +55,7 @@ export function handleClosePosition(event: ClosePositionEvent): void {
     event.params.poolId.toString()
   );
 
-  if (!pool) return;
+  if (!pool || pool.totalSupplied < entity.collateral) return;
 
   pool.totalSupplied = pool.totalSupplied.minus(entity.collateral);
 

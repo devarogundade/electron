@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Web3 from 'web3';
+// @ts-ignore
 import { useStore } from 'vuex';
 import { key } from '../store';
 import { getVerifiers } from '@/scripts/verifiers';

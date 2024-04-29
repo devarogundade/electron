@@ -2,7 +2,7 @@
 import type { Loan } from '@/types';
 import { onMounted, ref } from 'vue';
 // import ArrowDownIcon from './ArrowDownIcon.vue';
-
+// @ts-ignore
 import { useStore } from 'vuex';
 import { key } from '../store';
 import { electronId, repay } from '@/scripts/electron';
@@ -142,8 +142,8 @@ onMounted(() => {
                     </div>
 
                     <br> <br>
-                    <button v-if="allowance < Converter.fromWei(loan?.valueOf()?.principal || '0')" class="action"
-                        @click="approveElectron">
+                    <button v-if="allowance < Converter.fromWei((loan?.valueOf() as Loan)?.principal || '0')"
+                        class="action" @click="approveElectron">
                         {{ progress.valueOf() ? 'Approving..' : 'Approve' }}
                     </button>
                     <button v-else class="action" @click="repayLoan">

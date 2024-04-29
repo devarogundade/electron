@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 // import ArrowDownIcon from './ArrowDownIcon.vue';
 import VerifierPopup from './VerifierPopup.vue';
-
+// @ts-ignore
 import { useStore } from 'vuex';
 import { key } from '../store';
 import { borrow, calculateLtv } from '@/scripts/electron';
