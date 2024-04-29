@@ -6,10 +6,11 @@ import { useStore } from 'vuex';
 import { key } from '../store';
 import { electronId, supply } from '@/scripts/electron';
 import Converter from '@/scripts/converter';
-import { getPositions } from '@/scripts/subgraph';
+import { getPools, getPositions } from '@/scripts/subgraph';
 import { getToken } from '@/scripts/tokens';
-import { getAllowance } from '@/scripts/erc';
-import { approve } from '@/scripts/erc';
+import { getAllowance } from '@/scripts/erc20';
+import { approve } from '@/scripts/erc20';
+import { notify } from '@/reactives/notify';
 
 const store = useStore(key);
 
@@ -34,16 +35,27 @@ const supplyCollateral = async () => {
         Converter.toWei(collateral.value.toString())
     );
 
-    console.log(hash);
+    if (hash) {
+        notify.push({
+            title: 'Transaction successful.',
+            description: 'Transaction was sent.',
+            category: 'success',
+            linkTitle: 'View Trx',
+            linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+        });
 
-    if (!hash) {
-
-    } else {
-        if (store.state.address) {
+        setTimeout(async () => {
+            store.commit('setPools', await getPools());
             store.commit('setPositions', await getPositions(store.state.address));
-        }
+        }, 3000);
 
         emit('close');
+    } else {
+        notify.push({
+            title: 'Failed to send transaction.',
+            description: 'Try again.',
+            category: 'error'
+        });
     }
 
     progress.value = false;
@@ -59,14 +71,22 @@ const approveElectron = async () => {
         Converter.toWei(collateral.value.toString())
     );
 
-    progress.value = false;
+    if (hash) {
+        notify.push({
+            title: 'Transaction successful.',
+            description: 'Transaction was sent.',
+            category: 'success',
+            linkTitle: 'View Trx',
+            linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+        });
 
-    console.log(hash);
-
-    if (!hash) {
-
+        emit('close');
     } else {
-
+        notify.push({
+            title: 'Failed to send transaction.',
+            description: 'Try again.',
+            category: 'error'
+        });
     }
 
     initialize();

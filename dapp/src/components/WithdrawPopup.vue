@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getPosition, getPositions } from '@/scripts/subgraph';
+import { getPools, getPosition, getPositions } from '@/scripts/subgraph';
 import { getToken } from '@/scripts/tokens';
 import type { Position } from '@/types';
 import { onMounted, ref } from 'vue';
@@ -9,6 +9,7 @@ import { useStore } from 'vuex';
 import { key } from '../store';
 import { withdraw } from '@/scripts/electron';
 import Converter from '@/scripts/converter';
+import { notify } from '@/reactives/notify';
 
 const store = useStore(key);
 
@@ -28,16 +29,27 @@ const withdrawCollateral = async () => {
 
     const hash = await withdraw(props.pool.poolId);
 
-    console.log(hash);
+    if (hash) {
+        notify.push({
+            title: 'Transaction successful.',
+            description: 'Transaction was sent.',
+            category: 'success',
+            linkTitle: 'View Trx',
+            linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+        });
 
-    if (!hash) {
-
-    } else {
-        if (store.state.address) {
+        setTimeout(async () => {
+            store.commit('setPools', await getPools());
             store.commit('setPositions', await getPositions(store.state.address));
-        }
+        }, 3000);
 
         emit('close');
+    } else {
+        notify.push({
+            title: 'Failed to send transaction.',
+            description: 'Try again.',
+            category: 'error'
+        });
     }
 
     progress.value = false;

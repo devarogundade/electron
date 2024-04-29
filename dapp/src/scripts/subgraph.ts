@@ -86,7 +86,7 @@ export async function getLoan(poolId: number, account: `0x${string}`): Promise<L
         const response = await axios.post(endPoint,
             {
                 query: `{
-                    newLoan(id: ${account + poolId.toString()}) {
+                    newLoan(id: "${account.toLowerCase()}${poolId.toString()}") {
                         id
                         poolId
                         account

@@ -5,10 +5,12 @@ import { onMounted, ref } from 'vue';
 
 import { useStore } from 'vuex';
 import { key } from '../store';
-import { repay } from '@/scripts/electron';
+import { electronId, repay } from '@/scripts/electron';
 import Converter from '@/scripts/converter';
-import { getLoan, getLoans } from '@/scripts/subgraph';
+import { getLoan, getLoans, getPools } from '@/scripts/subgraph';
 import { getToken } from '@/scripts/tokens';
+import { notify } from '@/reactives/notify';
+import { approve, getAllowance } from '@/scripts/erc20';
 
 const store = useStore(key);
 
@@ -17,6 +19,7 @@ const isDropdown = ref(false);
 const progress = ref(false);
 
 const emit = defineEmits(['close', 'unClose']);
+const allowance = ref<String>('0');
 
 const props = defineProps({
     pool: { type: Object, required: true }
@@ -28,24 +31,72 @@ const repayLoan = async () => {
 
     const hash = await repay(props.pool.poolId);
 
-    console.log(hash);
+    if (hash) {
+        notify.push({
+            title: 'Transaction successful.',
+            description: 'Transaction was sent.',
+            category: 'success',
+            linkTitle: 'View Trx',
+            linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+        });
 
-    if (!hash) {
-
-    } else {
-        if (store.state.address) {
+        setTimeout(async () => {
+            store.commit('setPools', await getPools());
             store.commit('setLoans', await getLoans(store.state.address));
-        }
+        }, 3000);
 
         emit('close');
+    } else {
+        notify.push({
+            title: 'Failed to send transaction.',
+            description: 'Try again.',
+            category: 'error'
+        });
     }
 
     progress.value = false;
 };
 
+const approveElectron = async () => {
+    if (!loan.value || loan.value?.principal == '') return;
+    progress.value = true;
+
+    const hash = await approve(
+        props.pool.principalId,
+        electronId,
+        Converter.toWei(loan.value?.principal.toString())
+    );
+
+    if (hash) {
+        notify.push({
+            title: 'Transaction successful.',
+            description: 'Transaction was sent.',
+            category: 'success',
+            linkTitle: 'View Trx',
+            linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+        });
+    } else {
+        notify.push({
+            title: 'Failed to send transaction.',
+            description: 'Try again.',
+            category: 'error'
+        });
+    }
+
+    initialize();
+};
+
 const loan = ref<Loan | null>(null);
 
 const initialize = async () => {
+    allowance.value = Converter.fromWei(
+        await getAllowance(
+            props.pool.principalId,
+            store.state.address,
+            electronId
+        )
+    );
+
     if (store.state.address) {
         loan.value = await getLoan(props.pool.poolId, store.state.address);
     }
@@ -86,13 +137,16 @@ onMounted(() => {
 
                     <div class="label">
                         Borrowed:
-                        {{ loan?.principal }}
+                        {{ Converter.toMoney(Converter.fromWei(loan?.principal || '0')) }}
                         {{ getToken(props.pool.principalId)!!.symbol }}
                     </div>
 
                     <br> <br>
-
-                    <button class="action" @click="repayLoan">
+                    <button v-if="allowance < Converter.fromWei(loan?.valueOf()?.principal || '0')" class="action"
+                        @click="approveElectron">
+                        {{ progress.valueOf() ? 'Approving..' : 'Approve' }}
+                    </button>
+                    <button v-else class="action" @click="repayLoan">
                         {{ progress.valueOf() ? 'Repaying..' : 'Repay' }}
                     </button>
                 </div>

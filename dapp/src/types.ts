@@ -1,4 +1,5 @@
 export type Verifier = {
+    circuitId: string,
     proofId: `0x${string}`;
     description: string;
     tag: string;
@@ -8,7 +9,7 @@ export type Verifier = {
 export type Proof = {
     proofId: `0x${string}`;
     pubInputs: `0x${string}`[];
-    data: `0x${string}`;
+    data: string;
 };
 
 export type Pool = {
@@ -47,3 +48,11 @@ export type Token = {
     symbol: string;
     image: string;
 };
+
+export interface Message {
+    title: string;
+    description: string;
+    category: string;
+    linkTitle?: string;
+    linkUrl?: string;
+}

@@ -15,7 +15,10 @@ import { useStore } from 'vuex';
 import { key } from '../store';
 import Converter from '@/scripts/converter';
 import { getPositions, getLoans, getPools } from '@/scripts/subgraph';
-import { getToken } from '@/scripts/tokens';
+import { getToken, getTokens } from '@/scripts/tokens';
+import { addToWallet, faucet } from '@/scripts/erc20';
+import type { Token } from '@/types';
+import { notify } from '@/reactives/notify';
 
 const borrowPop = ref<object | null>(null);
 const supplyPop = ref<object | null>(null);
@@ -33,6 +36,30 @@ createWeb3Modal({
 });
 
 const modal = useWeb3Modal();
+
+const mint = async (tokenId: `0x${string}`) => {
+  const hash = await faucet(tokenId);
+
+  if (hash) {
+    notify.push({
+      title: 'Transaction successful.',
+      description: 'Transaction was sent.',
+      category: 'success',
+      linkTitle: 'View Trx',
+      linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+    });
+  } else {
+    notify.push({
+      title: 'Failed to send transaction.',
+      description: 'Try again.',
+      category: 'error'
+    });
+  }
+};
+
+const addToMetamask = async (token: Token) => {
+  await addToWallet(token);
+};
 
 const initialize = async () => {
   store.commit('setPools', await getPools());
@@ -86,6 +113,7 @@ onMounted(() => {
       <div class="app_width">
         <div class="hero">
           <h1 class="hero_text">Unlocking Higher Lending Potential with Zero-Knowledge Proofs.</h1>
+          <p>Built with #ChainLink #Noir #Sindri</p>
         </div>
       </div>
     </div>
@@ -122,13 +150,16 @@ onMounted(() => {
                   </div>
                 </td>
                 <td>
-                  <p>{{ Converter.fromWei(pool.totalSupplied) }} {{ getToken(pool.collateralId)!!.symbol }}</p>
+                  <p>{{ Converter.toMoney(Converter.fromWei(pool.totalSupplied)) }} {{
+                    getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ Converter.fromWei(pool.totalBorrowed) }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p>{{ Converter.toMoney(Converter.fromWei(pool.totalBorrowed)) }} {{
+                    getToken(pool.principalId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ Converter.fromWei(pool.totalSupplied) }} {{ getToken(pool.collateralId)!!.symbol }}</p>
+                  <p>{{ Converter.toMoney(Converter.fromWei(pool.totalSupplied)) }} {{
+                    getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
                   <button @click="supplyPop = pool">Supply</button>
@@ -175,16 +206,19 @@ onMounted(() => {
                   </div>
                 </td>
                 <td>
-                  <p>{{ Converter.fromWei(pool.totalBorrowed) }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p>{{ Converter.toMoney(Converter.fromWei(pool.totalBorrowed)) }} {{
+                    getToken(pool.principalId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ Converter.fromWei(pool.totalSupplied) }} {{ getToken(pool.collateralId)!!.symbol }}</p>
+                  <p>{{ Converter.toMoney(Converter.fromWei(pool.totalSupplied)) }} {{
+                    getToken(pool.collateralId)!!.symbol }}</p>
                 </td>
                 <td>
-                  <p>{{ Converter.fromWei(pool.totalBorrowed) }} {{ getToken(pool.principalId)!!.symbol }}</p>
+                  <p>{{ Converter.toMoney(Converter.fromWei(pool.totalBorrowed)) }} {{
+                    getToken(pool.principalId)!!.symbol }}</p>
                   <p style="font-size: 12px; margin-top: 2px; color: #d20808; font-weight: 400;">
                     Interest:
-                    {{ Converter.toMoney(pool.interest / 1_000_000) }}%
+                    {{ Converter.toMoney(Converter.fromWei(pool.interest)) }}%
                   </p>
                 </td>
                 <td>
@@ -203,7 +237,16 @@ onMounted(() => {
     <div class="faucet_container" id="faucet">
       <div class="app_width">
         <div class="market_title">
-          Faucet
+          Faucet | Test this application.
+        </div>
+
+        <div class="tokens">
+          <div class="token" v-for="token, index in getTokens()" :key="index">
+            <img :src="token.image" alt="">
+            <h3>{{ token.name }}</h3>
+            <button @click="mint(token.tokenId)">Mint 10 {{ token.symbol }}</button>
+            <button @click="addToMetamask(token)">Add to Metamask</button>
+          </div>
         </div>
       </div>
     </div>
@@ -219,6 +262,38 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.faucet_container .tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.faucet_container .token {
+  width: 240px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+}
+
+.faucet_container img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.faucet_container button {
+  min-width: 120px;
+  height: 36px;
+  padding: 0 30px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #FAFAFA;
+  cursor: pointer;
+}
+
 .header_container {
   display: flex;
   justify-content: center;
@@ -269,7 +344,7 @@ header {
 .hero_container .app_width {
   width: 1180px;
   padding-top: 160px;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
   border-radius: 0 0 20px 20px;
 }
@@ -277,12 +352,21 @@ header {
 .hero {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.hero p {
+  font-size: 16px;
+  color: #333;
 }
 
 .hero_text {
   width: 1100px;
   max-width: 100%;
-  font-size: 50px;
+  font-size: 45px;
   line-height: 75px;
   text-align: center;
   color: #1b1b4d;

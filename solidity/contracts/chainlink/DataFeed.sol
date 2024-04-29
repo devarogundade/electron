@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity 0.8.24;
 
 import {IDataFeed} from "./interfaces/IDataFeed.sol";
 
@@ -24,7 +24,7 @@ contract DataFeed is IDataFeed, Ownable2Step {
         emit NewPriceFeed(tokenId, priceFeed);
     }
 
-    function addUsdFeed(address usdId) external onlyOwner {
+    function addUsdFeed(address usdId) external override onlyOwner {
         // Set usdc price feed
         _usdId = usdId;
         _priceFeeds[usdId] = usdId;

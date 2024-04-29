@@ -27,6 +27,11 @@ export const abi = [
     },
     {
         "inputs": [],
+        "name": "HasPosition",
+        "type": "error"
+    },
+    {
+        "inputs": [],
         "name": "InvalidProof",
         "type": "error"
     },
@@ -243,34 +248,36 @@ export const abi = [
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
+        "inputs": [
             {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "poolId",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "bytes32",
+                        "name": "proofId",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "bytes32[]",
+                        "name": "pubInputs",
+                        "type": "bytes32[]"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "data",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct Data.Proof[]",
+                "name": "proofs",
+                "type": "tuple[]"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "pendingOwner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "renounceOwnership",
+        "name": "borrow",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -278,14 +285,37 @@ export const abi = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
+                "components": [
+                    {
+                        "internalType": "bytes32",
+                        "name": "proofId",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "bytes32[]",
+                        "name": "pubInputs",
+                        "type": "bytes32[]"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "data",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct Data.Proof[]",
+                "name": "proofs",
+                "type": "tuple[]"
             }
         ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "calculateLtv",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -329,67 +359,34 @@ export const abi = [
         "type": "function"
     },
     {
-        "inputs": [
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
             {
-                "internalType": "uint256",
-                "name": "poolId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "collateral",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             }
         ],
-        "name": "supply",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [
+        "inputs": [],
+        "name": "pendingOwner",
+        "outputs": [
             {
-                "internalType": "uint256",
-                "name": "poolId",
-                "type": "uint256"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "bytes32",
-                        "name": "proofId",
-                        "type": "bytes32"
-                    },
-                    {
-                        "internalType": "bytes32[]",
-                        "name": "pubInputs",
-                        "type": "bytes32[]"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "data",
-                        "type": "bytes"
-                    }
-                ],
-                "internalType": "struct Data.Proof[]",
-                "name": "proofs",
-                "type": "tuple[]"
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             }
         ],
-        "name": "borrow",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "poolId",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdraw",
+        "inputs": [],
+        "name": "renounceOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -410,6 +407,50 @@ export const abi = [
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "poolId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "collateral",
+                "type": "uint256"
+            }
+        ],
+        "name": "supply",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "poolId",
+                "type": "uint256"
+            }
+        ],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "tokenId",
                 "type": "address"
@@ -423,42 +464,6 @@ export const abi = [
         "name": "withdrawTokens",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "bytes32",
-                        "name": "proofId",
-                        "type": "bytes32"
-                    },
-                    {
-                        "internalType": "bytes32[]",
-                        "name": "pubInputs",
-                        "type": "bytes32[]"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "data",
-                        "type": "bytes"
-                    }
-                ],
-                "internalType": "struct Data.Proof[]",
-                "name": "proofs",
-                "type": "tuple[]"
-            }
-        ],
-        "name": "calculateLtv",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
         "type": "function"
     }
 ];

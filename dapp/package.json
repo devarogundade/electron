@@ -11,22 +11,28 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@aztec/bb.js": "^0.35.1",
+    "@noir-lang/backend_barretenberg": "^0.27.0",
+    "@noir-lang/noir_js": "^0.27.0",
     "@wagmi/connectors": "^4.1.12",
     "@wagmi/core": "^2.6.3",
     "@web3modal/wagmi": "^4.0.0",
     "axios": "^1.6.8",
     "bignumber.js": "^4.0.2",
+    "json-rpc-2.0": "^1.7.0",
+    "sindri": "^0.0.1-alpha.44",
     "viem": "^2.7.6",
     "vue": "^3.4.21",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.3.0",
     "vuex": "^4.1.0",
-    "wagmi": "^2.5.5"
+    "wagmi": "^2.5.5",
+    "web3": "^1.10.2"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/bignumber.js": "^5.0.0",
-    "@types/node": "^20.12.5",
+    "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/tsconfig": "^0.5.1",

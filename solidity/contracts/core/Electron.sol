@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity 0.8.24;
 
 import {Data} from "./libraries/Data.sol";
 
 import {IPools} from "./interfaces/IPools.sol";
 import {IElectron} from "./interfaces/IElectron.sol";
-import {IVerifier} from "../zk/interfaces/IVerifier.sol";
+import {IVerifier} from "../noir/interfaces/IVerifier.sol";
 import {IDataFeed} from "../chainlink/interfaces/IDataFeed.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -47,7 +47,7 @@ contract Electron is IElectron, Ownable2Step {
     }
 
     /// @notice Explain to an end user what this does
-    function supply(uint256 poolId, uint256 collateral) external {
+    function supply(uint256 poolId, uint256 collateral) external override {
         address account = _msgSender();
 
         // Get the liquidity pool
@@ -74,7 +74,10 @@ contract Electron is IElectron, Ownable2Step {
     }
 
     /// @notice Explain to an end user what this does
-    function borrow(uint256 poolId, Data.Proof[] memory proofs) external {
+    function borrow(
+        uint256 poolId,
+        Data.Proof[] memory proofs
+    ) external override {
         address account = _msgSender();
 
         // Check if account already has a pending loan
@@ -138,7 +141,7 @@ contract Electron is IElectron, Ownable2Step {
     }
 
     /// @notice Explain to an end user what this does
-    function withdraw(uint256 poolId) external {
+    function withdraw(uint256 poolId) external override {
         address account = _msgSender();
 
         // Check if account already has a pending loan
@@ -163,7 +166,7 @@ contract Electron is IElectron, Ownable2Step {
     }
 
     /// @notice Explain to an end user what this does
-    function repay(uint256 poolId) external {
+    function repay(uint256 poolId) external override {
         address account = _msgSender();
 
         // Get the account loan for pool

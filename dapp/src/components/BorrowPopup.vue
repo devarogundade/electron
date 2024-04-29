@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 // import ArrowDownIcon from './ArrowDownIcon.vue';
+import VerifierPopup from './VerifierPopup.vue';
 
 import { useStore } from 'vuex';
 import { key } from '../store';
-import { borrow } from '@/scripts/electron';
-import type { Position, Proof, Verifier } from '@/types';
-import { getLoans, getPosition } from '@/scripts/subgraph';
+import { borrow, calculateLtv } from '@/scripts/electron';
+import type { Position, Proof } from '@/types';
+import { getLoans, getPools, getPosition } from '@/scripts/subgraph';
 import Converter from '@/scripts/converter';
 import { getToken } from '@/scripts/tokens';
-import { getVerifiers } from '@/scripts/verifiers';
+import { convertFromTo } from '@/scripts/erc20';
+import { notify } from '@/reactives/notify';
 
 const store = useStore(key);
 
@@ -24,7 +26,9 @@ const props = defineProps({
     pool: { type: Object, required: true }
 });
 
-const proofs: Proof[] = [];
+const ltv = ref<any>('70');
+
+const proofs = ref<Proof[]>([]);
 
 const borrowLoan = async () => {
     if (progress.value) return;
@@ -32,48 +36,65 @@ const borrowLoan = async () => {
 
     const hash = await borrow(
         props.pool.poolId,
-        proofs
+        proofs.value
     );
+    if (hash) {
+        notify.push({
+            title: 'Transaction successful.',
+            description: 'Transaction was sent.',
+            category: 'success',
+            linkTitle: 'View Trx',
+            linkUrl: `https://sepolia.scrollscan.com/tx/${hash}`
+        });
 
-    console.log(hash);
-
-    if (!hash) {
-
-    } else {
         if (store.state.address) {
-            store.commit('setLoans', await getLoans(store.state.address));
+            setTimeout(async () => {
+                store.commit('setPools', await getPools());
+                store.commit('setLoans', await getLoans(store.state.address));
+            }, 3000);
         }
 
         emit('close');
+    } else {
+        notify.push({
+            title: 'Failed to send transaction.',
+            description: 'Try again.',
+            category: 'error'
+        });
     }
 
     progress.value = false;
 };
 
+const proofing = ref(false);
+
 const position = ref<Position | null>(null);
 
-const createProof = async (verifier: Verifier) => {
-
-
-
-    const proof: Proof = {
-        proofId: verifier.proofId,
-        pubInputs: [],
-        data: '0x'
-    };
-
-    proofs.push(proof);
-
-    calculateLtv();
+const cancelProofs = () => {
+    proofs.value = [];
+    proofing.value = false;
 };
 
-const calculateLtv = async () => {
-    estimatedPrincipal.value = '0';
+const updateLtv = async () => {
+    ltv.value = await calculateLtv(proofs.value);
+
+    const conversion = await convertFromTo(
+        props.pool.collateralId,
+        props.pool.principalId,
+        Converter.toWei(position.value?.collateral || '0')
+    );
+
+    estimatedPrincipal.value = (
+        Number(Converter.fromWei(conversion)) *
+        Number(Number(ltv.value) / 100)
+    ).toFixed(2);
 };
 
 const initialize = async () => {
     if (store.state.address) {
         position.value = await getPosition(props.pool.poolId, store.state.address);
+
+        updateLtv();
     }
 };
 
@@ -116,36 +137,13 @@ onMounted(() => {
 
                     <br>
 
-                    <p class="ltv">Your current loan to value ratio is <span>80%</span></p>
+                    <p class="ltv">Your current loan to value ratio is <span>{{ ltv }}%</span></p>
 
                     <br>
 
                     <div class="zk_proofs">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>ZK Proofs</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr v-for="verifier, index in getVerifiers()" :key="index">
-                                    <td>
-                                        <p>{{ verifier.description }}</p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            + {{ verifier.points }}%
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <button @click="createProof(verifier)">Proof</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p>With 100% anonymousity provide some proofs to amplify your LTV above 80%</p>
+                        <button @click="proofing = true">Provide proofs</button>
                     </div>
 
                     <br> <br>
@@ -177,6 +175,9 @@ onMounted(() => {
                 <br> <br>
             </div>
         </div>
+
+        <VerifierPopup v-if="proofing?.valueOf()" v-on:complete="proofs = $event; updateLtv()"
+            v-on:close="cancelProofs" />
     </div>
 </template>
 
@@ -280,7 +281,7 @@ onMounted(() => {
 
 .tokens {
     position: absolute;
-    background: #2e136d;
+    background: #CCC;
     border-radius: 10px;
     top: 55px;
 }
@@ -294,8 +295,28 @@ onMounted(() => {
 }
 
 .zk_proofs {
-    background-image: radial-gradient(at 50% 100%, rgba(255, 255, 255, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%);
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
     border-radius: 10px;
+    text-align: center;
+    padding: 30px;
+}
+
+.zk_proofs p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.zk_proofs button {
+    height: 40px;
+    width: 180px;
+    border-radius: 10px;
+    border: none;
+    background: #714cc8;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .ltv span {
