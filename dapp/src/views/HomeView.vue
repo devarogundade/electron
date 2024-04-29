@@ -244,7 +244,7 @@ onMounted(() => {
           <div class="token" v-for="token, index in getTokens()" :key="index">
             <img :src="token.image" alt="">
             <h3>{{ token.name }}</h3>
-            <button @click="mint(token.tokenId)">Mint 10 {{ token.symbol }}</button>
+            <button @click="mint(token.tokenId)">Mint 100 {{ token.symbol }}</button>
             <button @click="addToMetamask(token)">Add to Metamask</button>
           </div>
         </div>
