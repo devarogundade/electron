@@ -7,13 +7,16 @@ import { getVerifiers } from '@/scripts/verifiers';
 import { getVerifier } from '@/scripts/verifiers';
 import type { Verifier } from '@/types';
 import { NoirAPI } from '@/scripts/noir';
-import { hexToBytes, stringToBytes, toBytes } from 'viem';
+import { hexToBytes, stringToBytes, stringToHex, toBytes } from 'viem';
 import { notify } from '@/reactives/notify';
+import { ref } from 'vue';
 
-const emit = defineEmits(['close', 'unClose']);
+const emit = defineEmits(['completed', 'close', 'unClose']);
+
+const pass = ref<any>([]);
 
 const useProof = async () => {
-
+    emit('completed', pass.value);
 };
 
 const startVerifier = async (proofId: `0x${string}`) => {
@@ -22,17 +25,20 @@ const startVerifier = async (proofId: `0x${string}`) => {
     if (verifier?.proofId == '0x66756e6473566572696669657200000000000000000000000000000000000000') {
         startFundsVerifier(verifier);
     }
+
+    if (verifier?.proofId == '0x7477697474657256657269666965720000000000000000000000000000000000') {
+        startTwitterVerifier(verifier);
+    }
 };
 
 const startFundsVerifier = async (verifier: Verifier) => {
     const { web3Instance, accounts } = await getWeb3();
 
     if (accounts.length == 0) {
-
         return;
     }
 
-    const hashed_message = web3Instance.utils.stringToHex('Some data');
+    const hashed_message = web3Instance.utils.sha3(verifier.proofId);
 
     if (!hashed_message) {
         return;
@@ -51,12 +57,14 @@ const startFundsVerifier = async (verifier: Verifier) => {
                 hexToBytes(hashed_message as `0x${string}`, { size: 32 })
             ]);
 
-            if (response) {
+            if (!response) {
                 notify.push({
                     title: 'Proof generated.',
-                    description: response,
+                    description: response || hashed_message.substring(0, 20) + '...',
                     category: 'success'
                 });
+
+                pass.value.push({ ...verifier, response });
             } else {
                 notify.push({
                     title: 'Failed to generate proof.',
@@ -66,8 +74,60 @@ const startFundsVerifier = async (verifier: Verifier) => {
             }
         }
     );
-
 };
+
+const startTwitterVerifier = async (verifier: Verifier) => {
+    const username = prompt('No OAuth: Just for testing.. Enter user twitter username.');
+
+    if (!username) {
+        return;
+    }
+
+    const { web3Instance, accounts } = await getWeb3();
+
+    if (accounts.length == 0) {
+        return;
+    }
+
+    const hashed_message = web3Instance.utils.sha3(verifier.proofId);
+
+    if (!hashed_message) {
+        return;
+    }
+
+    web3Instance.eth.personal.sign(
+        hashed_message,
+        accounts[0],
+        '',
+        async (error, signature) => {
+            const noir = new NoirAPI();
+
+            const response = await noir.proveFunds([
+                hexToBytes(stringToHex(username)),
+                hexToBytes(accounts[0], { size: 65 }),
+                hexToBytes(signature as `0x${string}`, { size: 65 }),
+                hexToBytes(hashed_message as `0x${string}`, { size: 32 })
+            ]);
+
+            if (!response) {
+                notify.push({
+                    title: 'Proof generated.',
+                    description: response || hashed_message.substring(0, 20) + '...',
+                    category: 'success'
+                });
+
+                pass.value.push({ ...verifier, response });
+            } else {
+                notify.push({
+                    title: 'Failed to generate proof.',
+                    description: 'Try again.',
+                    category: 'error'
+                });
+            }
+        }
+    );
+};
+
 
 const getWeb3 = async () => {
     let web3Instance;
@@ -106,20 +166,22 @@ const getWeb3 = async () => {
         <div class="scroll">
             <div class="popup_wrapper">
                 <div class="header">
-                    <h3>+0%</h3>
+                    <h3>ZK Amplifier: +{{ pass.valueOf().reduce((n: any, { points }: any) => n + points, 0) }}%</h3>
                     <p @click="emit('close')">Cancel</p>
                 </div>
 
                 <div class="verifiers">
                     <div class="verifier" v-for="verifier, index in getVerifiers()" :key="index">
                         <h3>{{ verifier.description }} (+{{ verifier.points }}%)</h3>
-                        <button @click="startVerifier(verifier.proofId)">Start proving</button>
-
+                        <button v-if="pass.valueOf().find((p: any) => p.proofId == verifier.proofId)"
+                            style="background: green;">Done</button>
+                        <button v-else @click="startVerifier(verifier.proofId)">Start proving</button>
                         <br> <br>
                     </div>
 
+
                     <button class="action" @click="useProof">
-                        Continue with (+0%)
+                        Continue with (+{{ pass.valueOf().reduce((n: any, { points }: any) => n + points, 0) }}%)
                     </button>
                 </div>
 

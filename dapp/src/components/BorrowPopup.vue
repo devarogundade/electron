@@ -28,6 +28,7 @@ const props = defineProps({
 
 const ltv = ref<any>('70');
 
+const pass = ref<any>([]);
 const proofs = ref<Proof[]>([]);
 
 const borrowLoan = async () => {
@@ -76,7 +77,9 @@ const cancelProofs = () => {
 };
 
 const updateLtv = async () => {
-    ltv.value = await calculateLtv(proofs.value);
+    const points = pass.value.reduce((n: any, { points }: any) => n + points, 0);
+
+    ltv.value = Number(await calculateLtv(proofs.value)) + points;
 
     const conversion = await convertFromTo(
         props.pool.collateralId,
@@ -86,7 +89,7 @@ const updateLtv = async () => {
 
     estimatedPrincipal.value = (
         Number(Converter.fromWei(conversion)) *
-        Number(Number(ltv.value) / 100)
+        Number((Number(ltv.value) + points) / 100)
     ).toFixed(2);
 };
 
@@ -176,8 +179,8 @@ onMounted(() => {
             </div>
         </div>
 
-        <VerifierPopup v-if="proofing?.valueOf()" v-on:complete="proofs = $event; updateLtv()"
-            v-on:close="cancelProofs" />
+        <VerifierPopup v-if="proofing?.valueOf()"
+            v-on:completed="pass = $event; updateLtv(); proofing = false; initialize();" v-on:close="cancelProofs" />
     </div>
 </template>
 
@@ -270,6 +273,7 @@ onMounted(() => {
 .token img {
     width: 20px;
     height: 20px;
+    border-radius: 10px;
 }
 
 .token_drowndown {

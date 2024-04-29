@@ -238,6 +238,7 @@ onMounted(() => {
 .token img {
     width: 20px;
     height: 20px;
+    border-radius: 10px;
 }
 
 .token_drowndown {
