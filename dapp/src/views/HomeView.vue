@@ -113,7 +113,7 @@ onMounted(() => {
       <div class="app_width">
         <div class="hero">
           <h1 class="hero_text">Unlocking Higher Lending Potential with Zero-Knowledge Proofs.</h1>
-          <p>Built with #ChainLink #Noir #Sindri</p>
+          <p>Built with #ChainLink #Noir #Sindri #TheGraph</p>
         </div>
       </div>
     </div>
